@@ -6,10 +6,13 @@
 - CMDB validation.
 - Catalog reuse behavior.
 - AWX client mock and fallback.
+- Ticket traceability persistence across request/execution/audit.
+- ServiceNow-sim queue creation/seed and autonomous case processing.
 
 ## Integration Tests
 - End-to-end request lifecycle in mock mode.
 - Medium-risk approval flow.
+- End-to-end ServiceNow-sim case -> automation request -> resolution trace.
 
 ## Orchestrator Tests
 - Graph transition coverage through actor sequence.
@@ -30,7 +33,7 @@
 - Ansible checks: `pytest tests/ansible/test_ansible_validation.py`
 
 ## Current Environment Notes
-- Python suites pass (`tests/backend`, `tests/integration`, `tests/orchestrator`, `tests/ansible`).
+- Python suites pass (`50 passed`) including `tests/backend`, `tests/integration`, `tests/orchestrator`, `tests/ansible`.
 - Frontend unit tests pass with Node.js 20 runtime.
 - `next build` completes successfully for static pages.
 - Docker is not available by default in this VM, so `make up` depends on installing container runtime first.

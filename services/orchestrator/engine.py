@@ -20,6 +20,7 @@ from app.models import (
 from services.automation_catalog.service import find_reusable_automation, upsert_generated_automation
 from services.awx_client.client import build_awx_client
 from services.cmdb_sim.service import list_hosts, validate_targets
+from services.itsm_notifier.service import notify_ticket_event
 from services.orchestrator.analyzer import analyze_request
 from services.playbook_factory.factory import generate_from_blueprint
 from services.policy_engine.service import PolicyDecision, classify_risk
@@ -71,8 +72,61 @@ class AutomationOrchestrator:
             )
         )
 
-    def _audit(self, db: Session, request_id: str | None, event_type: str, message: str, payload: dict) -> None:
-        db.add(AuditLog(request_id=request_id, event_type=event_type, message=message, payload=payload))
+    def _audit(
+        self,
+        db: Session,
+        request_id: str | None,
+        event_type: str,
+        message: str,
+        payload: dict,
+        ticket_id: str | None = None,
+    ) -> None:
+        db.add(
+            AuditLog(
+                request_id=request_id,
+                ticket_id=ticket_id,
+                event_type=event_type,
+                message=message,
+                payload=payload,
+            )
+        )
+
+    def _notify_ticket(
+        self,
+        db: Session,
+        request: AutomationRequest,
+        event_type: str,
+        status: str,
+        payload: dict,
+    ) -> None:
+        result = notify_ticket_event(
+            self.config.settings,
+            ticket_id=request.ticket_id,
+            request_id=request.id,
+            event_type=event_type,
+            status=status,
+            payload=payload,
+        )
+        if not result.attempted:
+            return
+        if result.delivered:
+            self._audit(
+                db,
+                request.id,
+                event_type='ticket_notified',
+                message=f'Webhook notified for event={event_type}',
+                payload={'event_type': event_type, 'status': status},
+                ticket_id=request.ticket_id,
+            )
+            return
+        self._audit(
+            db,
+            request.id,
+            event_type='ticket_notify_failed',
+            message=f'Webhook notification failed for event={event_type}',
+            payload={'event_type': event_type, 'status': status, 'error': result.error},
+            ticket_id=request.ticket_id,
+        )
 
     def _build_graph(self):
         graph = StateGraph(OrchestratorState)
@@ -103,7 +157,8 @@ class AutomationOrchestrator:
 
         analysis = analyze_request(req.raw_request, known_hosts)
         spec = analysis.spec
-        warnings = analysis.warnings
+        warnings = list(req.warnings or [])
+        warnings.extend(analysis.warnings)
 
         target_validation = validate_targets(db, spec.get('targets', []), spec.get('request_type', 'unsupported'))
         if target_validation.missing_targets:
@@ -324,7 +379,16 @@ class AutomationOrchestrator:
                 event_type='request_terminal',
                 message=f'Request ended with status={req.status}',
                 payload={'risk': req.risk_level, 'reason': req.risk_reason},
+                ticket_id=req.ticket_id,
             )
+            if req.status == 'pending_approval':
+                self._notify_ticket(
+                    db,
+                    req,
+                    event_type='approval_required',
+                    status=req.status,
+                    payload={'risk_level': req.risk_level, 'reason': req.risk_reason},
+                )
             return state
 
         automation = state.get('automation')
@@ -351,10 +415,19 @@ class AutomationOrchestrator:
         request_type = spec.get('request_type')
         canonical_playbooks = {
             'create_user': 'ansible/playbooks/create_user.yml',
+            'delete_user': 'ansible/playbooks/delete_user.yml',
+            'reset_password': 'ansible/playbooks/reset_password.yml',
+            'add_ssh_key': 'ansible/playbooks/add_ssh_key.yml',
+            'create_directory': 'ansible/playbooks/create_directory.yml',
             'install_service': 'ansible/playbooks/install_service.yml',
+            'install_package': 'ansible/playbooks/install_package.yml',
+            'restart_service': 'ansible/playbooks/restart_service.yml',
             'manage_service': 'ansible/playbooks/manage_service.yml',
             'install_agent': 'ansible/playbooks/install_agent.yml',
             'deploy_template': 'ansible/playbooks/deploy_template.yml',
+            'check_uptime': 'ansible/playbooks/check_uptime.yml',
+            'check_patch_status': 'ansible/playbooks/check_patch_status.yml',
+            'check_connectivity': 'ansible/playbooks/check_connectivity.yml',
         }
         # Backward compatibility for older catalog entries seeded as `playbooks/...`.
         if isinstance(playbook_path, str) and playbook_path.startswith('playbooks/'):
@@ -372,18 +445,23 @@ class AutomationOrchestrator:
                 playbook_path=playbook_path,
                 inventory_name=self.config.settings.awx_inventory,
             )
+            launch_vars = dict(spec.get('params', {}))
+            launch_vars.setdefault('afl_ticket_id', req.ticket_id)
+            launch_vars.setdefault('afl_request_id', req.id)
+
             launch = awx_client.launch_job(
                 template_name=automation.name,
                 limit_hosts=targets,
-                extra_vars=spec.get('params', {}),
+                extra_vars=launch_vars,
             )
 
             execution = ExecutionRecord(
                 request_id=req.id,
+                ticket_id=req.ticket_id,
                 awx_mode=launch.mode,
                 template_name=launch.template_name,
                 hosts=targets,
-                extra_vars=spec.get('params', {}),
+                extra_vars=launch_vars,
                 job_id=launch.job_id,
                 status=launch.status,
                 output_summary=launch.summary,
@@ -411,6 +489,14 @@ class AutomationOrchestrator:
                 event_type='execution',
                 message='Execution completed via AWX client.',
                 payload={'mode': launch.mode, 'job_id': launch.job_id, 'status': launch.status},
+                ticket_id=req.ticket_id,
+            )
+            self._notify_ticket(
+                db,
+                req,
+                event_type='execution_finished',
+                status=req.status,
+                payload={'job_id': launch.job_id, 'job_status': launch.status, 'awx_mode': launch.mode},
             )
             return {**state, 'execution': execution}
         except Exception as exc:
@@ -437,6 +523,14 @@ class AutomationOrchestrator:
                 req.id,
                 event_type='execution_failure',
                 message='Execution failed.',
+                payload={'error': reason},
+                ticket_id=req.ticket_id,
+            )
+            self._notify_ticket(
+                db,
+                req,
+                event_type='execution_failed',
+                status=req.status,
                 payload={'error': reason},
             )
             return {**state, 'rejected': True, 'rejection_reason': reason}

@@ -42,6 +42,7 @@ export default function ApprovalsPage() {
           {items.length === 0 ? <p className="text-sm text-slate-500">No hay solicitudes pendientes.</p> : null}
           {items.map((item) => (
             <article key={item.request_id} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-xs font-semibold text-slate-700">Ticket: {item.ticket_id}</p>
               <p className="text-xs text-slate-500">{item.request_id}</p>
               <p className="mt-1 text-sm">{item.request_text}</p>
               <p className="mt-1 text-xs text-slate-600">Riesgo: {item.risk_level}</p>

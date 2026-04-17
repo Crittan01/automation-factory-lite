@@ -1,0 +1,14 @@
+---
+- name: Check patch status
+  hosts: "{{ target_hosts | default('lab') }}"
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Run DNF check-update
+      ansible.builtin.command: dnf -q check-update
+      changed_when: false
+      failed_when: patch_check.rc not in [0, 100]
+      register: patch_check
+    - name: Print patch check status code
+      ansible.builtin.debug:
+        msg: "Patch check rc={{ patch_check.rc }} (0=no updates, 100=updates available)"

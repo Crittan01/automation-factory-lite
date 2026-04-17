@@ -18,10 +18,14 @@
    - `AWX_PROJECT_SCM_TYPE=git`
    - `AWX_PROJECT_SCM_URL=<git_repo_with_playbooks>`
    - `AWX_PROJECT_SCM_BRANCH=<branch>`
+   - Optional ITSM sync:
+     - `ITSM_WEBHOOK_ENABLED=true`
+     - `ITSM_WEBHOOK_URL=<itsm_webhook_endpoint>`
+     - `ITSM_WEBHOOK_TOKEN=<optional_token>`
 
 ## Bootstrap AWX Objects
 ```bash
-curl -X POST http://localhost:8000/api/bootstrap/awx
+curl -X POST http://localhost:18010/api/bootstrap/awx
 ```
 Expected: organization, project, and inventory created or reused idempotently.
 
@@ -35,12 +39,21 @@ Latest validated lab run (April 17, 2026):
 - Project: `AutomationFactoryLiteProject` (id `20`)
 - Inventory: `AutomationFactoryLiteInventory` (id `3`)
 - Workflow: `AFL - Low Risk Factory Workflow`
-- Job templates map directly to V1 playbooks:
+- Job templates map directly to approved catalog playbooks (core + extended):
   - `ansible/playbooks/create_user.yml`
+  - `ansible/playbooks/delete_user.yml`
+  - `ansible/playbooks/reset_password.yml`
+  - `ansible/playbooks/add_ssh_key.yml`
+  - `ansible/playbooks/create_directory.yml`
   - `ansible/playbooks/install_service.yml`
+  - `ansible/playbooks/install_package.yml`
+  - `ansible/playbooks/restart_service.yml`
   - `ansible/playbooks/manage_service.yml`
   - `ansible/playbooks/install_agent.yml`
   - `ansible/playbooks/deploy_template.yml`
+  - `ansible/playbooks/check_uptime.yml`
+  - `ansible/playbooks/check_patch_status.yml`
+  - `ansible/playbooks/check_connectivity.yml`
 - Demo launch evidence:
   - job `185` (`AFL - Create User`): `successful`
   - job `187` (`AFL - Install Service`): `successful`
@@ -51,6 +64,12 @@ Latest validated lab run (April 17, 2026):
 - Create request from UI or `/api/requests`.
 - Revisor/Publicador publishes job template and launches job when policy allows.
 - Job details visible in `/api/executions`.
+- Launches include correlation vars in AWX:
+  - `afl_ticket_id`
+  - `afl_request_id`
+- The same flow can be triggered from ServiceNow sim queue through:
+  - `POST /api/servicenow/agent/run`
+  - each case number is propagated as ticket correlation id.
 
 ## Host Connection Notes
 - Ensure AWX inventory includes:
@@ -64,15 +83,10 @@ Latest validated lab run (April 17, 2026):
 ## Troubleshooting
 - If AWX API unavailable, service falls back to mock mode for continuity.
 - Check `/api/audit` for execution failures and payload details.
-- If AWX rejects template creation with `playbook not found`, sync project repository and ensure V1 playbooks exist in that repo.
+- If AWX rejects template creation with `playbook not found`, sync project repository and ensure approved playbooks exist in that repo.
 
 ## Data Needed to Complete Full Real Mapping
-- Git repository/branch reachable by AWX that contains:
-  - `ansible/playbooks/create_user.yml`
-  - `ansible/playbooks/install_service.yml`
-  - `ansible/playbooks/manage_service.yml`
-  - `ansible/playbooks/install_agent.yml`
-  - `ansible/playbooks/deploy_template.yml`
+- Git repository/branch reachable by AWX that contains the approved playbook set under `ansible/playbooks/`.
 - Confirmed machine credential id or name with SSH access to:
   - `192.168.250.30`
   - `192.168.250.40`

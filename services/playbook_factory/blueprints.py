@@ -18,6 +18,103 @@ SAFE_BLUEPRINTS = {
         state: present
 """,
     },
+    'delete_user': {
+        'required': ['username'],
+        'optional': ['remove_home'],
+        'template': """---
+- name: Delete Linux user safely
+  hosts: {{ targets_pattern }}
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Ensure user is absent
+      ansible.builtin.user:
+        name: "{{ username }}"
+        state: absent
+        remove: "{{ remove_home | default(false) }}"
+""",
+    },
+    'reset_password': {
+        'required': ['username', 'password_hash'],
+        'optional': [],
+        'template': """---
+- name: Reset password using pre-hashed value
+  hosts: {{ targets_pattern }}
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Ensure password hash is a SHA-512 crypt hash
+      ansible.builtin.assert:
+        that:
+          - password_hash.startswith('$6$')
+        fail_msg: "password_hash must start with $6$"
+
+    - name: Update user password hash
+      ansible.builtin.user:
+        name: "{{ username }}"
+        password: "{{ password_hash }}"
+        update_password: always
+""",
+    },
+    'add_ssh_key': {
+        'required': ['username', 'ssh_public_key'],
+        'optional': [],
+        'template': """---
+- name: Add authorized SSH key
+  hosts: {{ targets_pattern }}
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Validate supported key format
+      ansible.builtin.assert:
+        that:
+          - ssh_public_key.startswith('ssh-rsa ') or ssh_public_key.startswith('ssh-ed25519 ')
+        fail_msg: "Only ssh-rsa and ssh-ed25519 keys are allowed"
+
+    - name: Ensure .ssh directory exists
+      ansible.builtin.file:
+        path: "/home/{{ username }}/.ssh"
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0700"
+
+    - name: Ensure authorized key exists for user
+      ansible.builtin.lineinfile:
+        path: "/home/{{ username }}/.ssh/authorized_keys"
+        line: "{{ ssh_public_key }}"
+        create: true
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0600"
+        state: present
+""",
+    },
+    'create_directory': {
+        'required': ['directory_path'],
+        'optional': ['owner', 'group', 'mode'],
+        'allowed_paths': ['/opt/automation_factory_lite', '/srv/automation_factory_lite', '/var/tmp/automation_factory_lite'],
+        'template': """---
+- name: Create approved directory
+  hosts: {{ targets_pattern }}
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Validate destination path
+      ansible.builtin.assert:
+        that:
+          - directory_path.startswith('/opt/automation_factory_lite') or directory_path.startswith('/srv/automation_factory_lite') or directory_path.startswith('/var/tmp/automation_factory_lite')
+        fail_msg: "Directory path is outside approved scope"
+
+    - name: Ensure directory exists
+      ansible.builtin.file:
+        path: "{{ directory_path }}"
+        state: directory
+        owner: "{{ dir_owner | default('root') }}"
+        group: "{{ dir_group | default('root') }}"
+        mode: "{{ dir_mode | default('0755') }}"
+""",
+    },
     'install_service': {
         'required': ['service_name'],
         'optional': [],
@@ -38,6 +135,50 @@ SAFE_BLUEPRINTS = {
       ansible.builtin.package:
         name: "{{ service_name }}"
         state: present
+""",
+    },
+    'install_package': {
+        'required': ['package_name'],
+        'optional': [],
+        'allowed_packages': ['jq', 'curl', 'git', 'rsync', 'htop', 'cockpit'],
+        'template': """---
+- name: Install approved package
+  hosts: {{ targets_pattern }}
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Validate package
+      ansible.builtin.assert:
+        that:
+          - package_name in ['jq', 'curl', 'git', 'rsync', 'htop', 'cockpit']
+        fail_msg: "Package not allowed by policy"
+
+    - name: Ensure package is present
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+""",
+    },
+    'restart_service': {
+        'required': ['service_name'],
+        'optional': [],
+        'allowed_services': ['nginx', 'httpd', 'cockpit'],
+        'template': """---
+- name: Restart approved service
+  hosts: {{ targets_pattern }}
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Validate service
+      ansible.builtin.assert:
+        that:
+          - service_name in ['nginx', 'httpd', 'cockpit']
+        fail_msg: "Service not allowed for restart"
+
+    - name: Restart service
+      ansible.builtin.service:
+        name: "{{ service_name }}"
+        state: restarted
 """,
     },
     'manage_service': {
@@ -147,6 +288,65 @@ SAFE_BLUEPRINTS = {
         owner: "{{ file_owner | default('root') }}"
         group: "{{ file_group | default('root') }}"
         mode: "{{ file_mode | default('0644') }}"
+""",
+    },
+    'check_uptime': {
+        'required': [],
+        'optional': [],
+        'template': """---
+- name: Gather uptime diagnostics
+  hosts: {{ targets_pattern }}
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Get uptime
+      ansible.builtin.command: uptime -p
+      changed_when: false
+      register: uptime_result
+
+    - name: Show uptime
+      ansible.builtin.debug:
+        var: uptime_result.stdout
+""",
+    },
+    'check_patch_status': {
+        'required': [],
+        'optional': [],
+        'template': """---
+- name: Gather patch status diagnostics
+  hosts: {{ targets_pattern }}
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Run package update check
+      ansible.builtin.command: dnf -q check-update
+      changed_when: false
+      failed_when: patch_check.rc not in [0, 100]
+      register: patch_check
+
+    - name: Show patch check summary
+      ansible.builtin.debug:
+        msg: "Patch check rc={{ patch_check.rc }} (0=no updates, 100=updates available)"
+""",
+    },
+    'check_connectivity': {
+        'required': ['connectivity_target'],
+        'optional': [],
+        'template': """---
+- name: Run connectivity diagnostics
+  hosts: {{ targets_pattern }}
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Ping connectivity target
+      ansible.builtin.command: ping -c 1 -W 2 {{ connectivity_target }}
+      changed_when: false
+      failed_when: false
+      register: connectivity_probe
+
+    - name: Report connectivity result
+      ansible.builtin.debug:
+        msg: "Connectivity rc={{ connectivity_probe.rc }} target={{ connectivity_target }}"
 """,
     },
 }

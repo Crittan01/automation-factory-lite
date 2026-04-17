@@ -14,6 +14,7 @@ from app.database import Base, SessionLocal, engine
 from app.models import AuditLog, AutomationCatalogEntry, AutomationRequest, TimelineEvent
 from app.settings import get_settings
 from services.cmdb_sim.service import seed_cmdb_hosts
+from services.servicenow_sim.service import seed_demo_cases
 
 
 def main() -> None:
@@ -28,6 +29,7 @@ def main() -> None:
             settings.target_host_2,
             settings.target_host_2_name,
         )
+        seed_demo_cases(db, [settings.target_host_1_name, settings.target_host_2_name])
 
         existing_catalog = {
             item.name
@@ -101,6 +103,7 @@ def main() -> None:
             db.add(
                 AuditLog(
                     request_id=req.id,
+                    ticket_id=req.ticket_id,
                     event_type='seed',
                     message='Seeded CMDB, catalog and demo request history',
                     payload={'script': 'seed_data.py'},

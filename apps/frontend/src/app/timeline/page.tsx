@@ -44,7 +44,7 @@ export default function TimelinePage() {
         >
           {requests.map((request) => (
             <option key={request.id} value={request.id}>
-              {request.id.slice(0, 8)} - {request.status}
+              {request.ticket_id} - {request.status}
             </option>
           ))}
         </select>

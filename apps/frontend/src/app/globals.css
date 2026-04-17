@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --ink: #0f172a;
-  --haze: #f8fafc;
-  --accent: #0ea5e9;
-  --aqua: #14b8a6;
-  --ember: #f97316;
+  --ink: #14213d;
+  --haze: #f3f6fb;
+  --accent: #0b5cab;
+  --aqua: #00a79d;
+  --ember: #ff8f00;
+  --shell-navy: #1f2a44;
   --font-display: "Space Grotesk", "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
   --font-mono: "IBM Plex Mono", "Fira Code", "Cascadia Code", monospace;
 }
@@ -23,9 +24,9 @@ body {
   font-family: var(--font-display);
   color: var(--ink);
   background:
-    radial-gradient(circle at 10% 20%, rgba(20, 184, 166, 0.16), transparent 40%),
-    radial-gradient(circle at 80% 10%, rgba(14, 165, 233, 0.2), transparent 45%),
-    linear-gradient(135deg, #fdfdfd 0%, #f1f5f9 100%);
+    radial-gradient(circle at 8% 18%, rgba(0, 167, 157, 0.16), transparent 38%),
+    radial-gradient(circle at 82% 10%, rgba(11, 92, 171, 0.2), transparent 44%),
+    linear-gradient(135deg, #fdfefe 0%, #edf3fb 100%);
   min-height: 100%;
 }
 
@@ -50,7 +51,7 @@ main {
 }
 
 .card {
-  @apply rounded-2xl border border-sky-100 bg-white/90 shadow-sm backdrop-blur;
+  @apply rounded-2xl border border-slate-200 bg-white/95 shadow-sm backdrop-blur;
 }
 
 .badge {

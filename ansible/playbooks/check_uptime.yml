@@ -1,0 +1,13 @@
+---
+- name: Check uptime
+  hosts: "{{ target_hosts | default('lab') }}"
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Run uptime command
+      ansible.builtin.command: uptime -p
+      changed_when: false
+      register: uptime_result
+    - name: Print uptime
+      ansible.builtin.debug:
+        var: uptime_result.stdout

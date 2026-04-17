@@ -1,11 +1,17 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import pytest
 
 os.environ['AWX_MODE'] = 'mock'
 os.environ['MOCK_MODE'] = 'true'
+os.environ['DATABASE_URL'] = 'sqlite:////tmp/automation_factory_lite_test.db'
+
+test_db_path = Path('/tmp/automation_factory_lite_test.db')
+if test_db_path.exists():
+    test_db_path.unlink()
 
 from app.database import Base, SessionLocal, engine
 from app.settings import get_settings

@@ -5,7 +5,7 @@
   gather_facts: false
   vars:
     service_name: "{{ service_name | default('nginx') }}"
-    service_action: "{{ service_action | default(action | default('start')) }}"
+    service_action: "{{ service_action | default(action | default(state | default('start'))) }}"
     desired_state: "{{ 'started' if service_action == 'start' else 'stopped' if service_action == 'stop' else 'restarted' }}"
   tasks:
     - name: Validate service and state

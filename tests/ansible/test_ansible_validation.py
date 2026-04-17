@@ -48,10 +48,19 @@ def _tool_ready(tool: str) -> bool:
     'playbook',
     [
         'create_user.yml',
+        'delete_user.yml',
+        'reset_password.yml',
+        'add_ssh_key.yml',
+        'create_directory.yml',
         'install_service.yml',
+        'install_package.yml',
+        'restart_service.yml',
         'manage_service.yml',
         'install_agent.yml',
         'deploy_template.yml',
+        'check_uptime.yml',
+        'check_patch_status.yml',
+        'check_connectivity.yml',
     ],
 )
 def test_ansible_syntax_check(playbook: str) -> None:

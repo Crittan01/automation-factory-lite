@@ -7,10 +7,14 @@ export type Dashboard = {
   success: number;
   failed: number;
   actions_with_approval: number;
+  servicenow_open_cases?: number;
+  servicenow_resolved_cases?: number;
+  servicenow_manual_cases?: number;
 };
 
 export type IntakeResponse = {
   id: string;
+  ticket_id: string;
   status: string;
   risk_level?: string;
   risk_reason?: string;
@@ -65,6 +69,7 @@ export type TimelineEvent = {
 
 export type ApprovalItem = {
   request_id: string;
+  ticket_id: string;
   request_text: string;
   risk_level: string;
   risk_reason: string;
@@ -75,6 +80,7 @@ export type ApprovalItem = {
 export type Execution = {
   id: string;
   request_id: string;
+  ticket_id?: string;
   awx_mode: string;
   template_name: string;
   hosts: string[];
@@ -89,8 +95,64 @@ export type Execution = {
 export type AuditEntry = {
   id: string;
   request_id?: string;
+  ticket_id?: string;
   event_type: string;
   message: string;
   payload: Record<string, unknown>;
   created_at: string;
+};
+
+export type ServiceNowCaseEvent = {
+  actor: string;
+  event_type: string;
+  message: string;
+  payload: Record<string, unknown>;
+  created_at: string;
+};
+
+export type ServiceNowCase = {
+  id: string;
+  number: string;
+  short_description: string;
+  description?: string;
+  request_type?: string;
+  params: Record<string, unknown>;
+  targets: string[];
+  priority: string;
+  state: string;
+  assignment_group: string;
+  requested_by: string;
+  automation_request_id?: string;
+  execution_id?: string;
+  resolution_notes?: string;
+  last_agent_run_at?: string;
+  source: string;
+  created_at: string;
+  updated_at: string;
+  events?: ServiceNowCaseEvent[];
+};
+
+export type ServiceNowAgentRun = {
+  scanned: number;
+  processed: number;
+  resolved: number;
+  awaiting_approval: number;
+  manual_attention: number;
+  errors: number;
+  case_numbers: string[];
+};
+
+export type ServiceNowMcpStatus = {
+  enabled: boolean;
+  mode: string;
+  endpoint?: string;
+  server_cmd: string;
+  mcp_package_installed: boolean;
+  bridge_status: string;
+  external_service_enabled?: boolean;
+  external_service_url?: string;
+  external_service_reachable?: boolean;
+  external_service_error?: string;
+  queue_open_cases: number;
+  checked_at: string;
 };

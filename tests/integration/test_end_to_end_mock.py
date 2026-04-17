@@ -52,3 +52,20 @@ def test_end_to_end_medium_requires_approval() -> None:
         pending = db.execute(select(ApprovalDecision).where(ApprovalDecision.request_id == req.id)).scalar_one_or_none()
         assert pending is not None
         assert pending.status == 'pending'
+
+
+def test_end_to_end_diagnostics_uptime() -> None:
+    orchestrator = _orchestrator()
+
+    with SessionLocal() as db:
+        req = AutomationRequest(
+            raw_request='Obtener uptime en ol9server1',
+            requester='tester',
+        )
+        db.add(req)
+        db.commit()
+        db.refresh(req)
+
+        result = orchestrator.process_request(db, req)
+        assert result.structured_spec['request_type'] == 'check_uptime'
+        assert result.status in {'executed', 'validated'}

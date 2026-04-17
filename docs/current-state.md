@@ -257,3 +257,355 @@
 
 ### Risks / Blockers
 - If AWX still returns 400 after this fix, next likely cause is project sync/credential/template constraints in AWX rather than playbook path resolution.
+
+## Block 10 - Ticket Traceability End-to-End
+### Implemented
+- Added `ticket_id` correlation across backend models:
+  - `automation_requests.ticket_id`
+  - `execution_records.ticket_id`
+  - `audit_logs.ticket_id`
+- Intake API now accepts optional `ticket_id`; if missing, platform auto-generates one (`AFL-...`) and leaves warning evidence.
+- Added runtime schema guard on startup to add missing `ticket_id` columns/indexes for existing DBs without requiring manual migration.
+- Extended API filtering:
+  - `GET /api/requests?ticket_id=...`
+  - `GET /api/executions?ticket_id=...`
+  - `GET /api/audit?ticket_id=...` (+ optional `request_id`, `event_type`)
+- Pending approvals response now includes `ticket_id`.
+- Orchestrator now propagates correlation to AWX launches:
+  - `afl_ticket_id`
+  - `afl_request_id`
+- Added optional ITSM webhook notifier (`services/itsm_notifier`) controlled by:
+  - `ITSM_WEBHOOK_ENABLED`
+  - `ITSM_WEBHOOK_URL`
+  - `ITSM_WEBHOOK_TOKEN`
+  - `ITSM_WEBHOOK_TIMEOUT_SECONDS`
+- Webhook behavior is best-effort/non-blocking; failures are audited as `ticket_notify_failed`.
+- Updated UI for managerial traceability:
+  - Intake: input/display `ticket_id`
+  - Dashboard: ticket column
+  - Timeline selector: ticket-centric label
+  - Approvals/Execution: ticket visibility
+  - Audit: filter by `ticket_id`
+- Updated demo script to use deterministic ticket IDs (`AFL-DEMO-001..003`).
+
+### Mocked
+- ITSM webhook delivery remains mocked unless a real endpoint is configured.
+
+### Tests Passed
+- `python -m pytest -q`: `24 passed`
+- `pytest -q tests/backend tests/integration tests/orchestrator`: passed
+- `npm test -- --run` (frontend): passed
+- `make lint`: passed (`ansible-lint`, `yamllint`, backend/integration/orchestrator tests)
+
+### Remaining
+- Optional: add API-level tests with `TestClient` once async test-client behavior is stabilized in this environment.
+- Optional: connect real ITSM webhook endpoint for live ticket status synchronization.
+
+### Risks / Blockers
+- If webhook URL/token is wrong or unreachable, automation flow still continues (by design), but external ITSM system will not receive updates until fixed.
+
+## Block 11 - ServiceNow Simulation + MCP Queue Agent
+### Implemented
+- Added ServiceNow functional simulation domain:
+  - `servicenow_cases` model with lifecycle states (`new`, `in_progress`, `resolved`, `awaiting_approval`, `needs_manual_attention`).
+  - `servicenow_case_events` timeline per case.
+- Added backend ServiceNow API:
+  - `GET /api/servicenow/cases`
+  - `GET /api/servicenow/cases/{number}`
+  - `POST /api/servicenow/cases`
+  - `POST /api/servicenow/cases/seed`
+  - `POST /api/servicenow/agent/run`
+- Implemented queue-processing agent:
+  - reads pending cases,
+  - maps them to automation requests (`ticket_id=case_number`),
+  - executes supported requests through existing orchestrator,
+  - routes medium-risk to `awaiting_approval`,
+  - escalates unsupported requests to `needs_manual_attention`.
+- Added full audit correlation for ServiceNow processing events (`servicenow_case_processed`, `servicenow_case_escalated`, `servicenow_agent_run`).
+- Added optional MCP server for ServiceNow simulation:
+  - `services/servicenow_sim/mcp_server.py`
+  - tools for listing/creating/getting cases and running queue agent.
+- Added new UI page:
+  - `/servicenow` with live polling queue, KPI counters, case detail timeline, quick case creation, seed, and run-agent actions.
+- Dashboard now includes ServiceNow queue metrics.
+
+### Mocked
+- MCP transport dependency (`mcp` package) is optional and not mandatory for core runtime.
+- ServiceNow remains simulated (not calling external ServiceNow SaaS APIs).
+
+### Tests Passed
+- New tests added:
+  - `tests/backend/test_servicenow_agent.py`
+  - `tests/integration/test_servicenow_end_to_end_mock.py`
+- Full Python suite: `python -m pytest -q` -> `28 passed`.
+- Frontend tests: `npm test -- --run` -> passed.
+- Frontend build: `npm run build` -> passed.
+- Lint/Ansible checks: `make lint` -> passed.
+
+### Remaining
+- Optional: wire real ServiceNow APIs and OAuth to replace simulation backend.
+- Optional: register MCP server in client config for direct external agent tooling.
+
+### Risks / Blockers
+- If queue receives many medium/high-risk cases, throughput depends on approval/manual process by design.
+
+## Block 12 - UX Simplification (ServiceNow MCP First)
+### Implemented
+- Simplified sidebar navigation:
+  - primary executive modules visible by default.
+  - technical modules hidden behind a toggle (`Mostrar/Ocultar Módulos Técnicos`).
+- Renamed UI label and framing from `ServiceNow Live` to `ServiceNow MCP`.
+- Enhanced `/servicenow` view with explicit backlog section:
+  - `Catálogos por Atender` (counts by request type in open queue).
+- Added dedicated executive console route:
+  - `/servicenow-mcp` with ServiceNow-inspired layout and explicit MCP bridge status.
+- Kept all technical modules available but de-emphasized for non-technical demos.
+
+### Mocked
+- None in this block.
+
+### Tests Passed
+- `npm test -- --run` -> passed.
+- `npm run build` -> passed.
+
+### Remaining
+- Optional: if desired, remove technical modules entirely from main navigation and expose only via dedicated admin route.
+
+### Risks / Blockers
+- None.
+
+## Block 13 - Realistic ServiceNow MCP Console + Maintainability Review
+### Implemented
+- Added dedicated executive UI route:
+  - `/servicenow-mcp`
+  - ServiceNow-inspired visual language (header/nav/panel structure).
+- Kept `/servicenow` as technical operations view and added cross-link to executive console.
+- Added explicit MCP bridge status endpoint:
+  - `GET /api/servicenow/mcp/status`
+  - fields include enablement, mode, command, package availability and queue snapshot.
+- Added MCP bridge env config:
+  - `SERVICENOW_MCP_ENABLED`
+  - `SERVICENOW_MCP_MODE`
+  - `SERVICENOW_MCP_ENDPOINT`
+  - `SERVICENOW_MCP_SERVER_CMD`
+- Updated navigation prioritization:
+  - business modules first
+  - technical modules hidden behind toggle.
+- Added maintainability document:
+  - `docs/maintainability.md` with core vs optional modules and lean-profile recommendations.
+- Refined global visual palette for more coherent enterprise look.
+
+### Mocked
+- Real external ServiceNow SaaS API integration is still simulated through internal ServiceNow domain + MCP bridge.
+
+### Tests Passed
+- `python -m pytest -q` -> `29 passed`
+- `pytest tests/backend tests/integration tests/orchestrator -q` -> passed
+- `npm test -- --run` -> passed
+- `npm run build` -> passed
+- `make lint` -> passed
+
+### Remaining
+- Optional: replace simulated ServiceNow backend with real ServiceNow table APIs (OAuth).
+- Optional: role-based UI mode (executive vs admin) to hide technical routes by permission instead of toggle.
+
+### Risks / Blockers
+- Branding can only be “ServiceNow-inspired” to avoid exact product UI cloning constraints.
+
+## Block 14 - Service Separation (ServiceNow Sim on Dedicated Port)
+### Implemented
+- Added dedicated ServiceNow-sim API app:
+  - `services/servicenow_sim/api.py`
+  - runnable in separate process/port (`8095` default).
+- Added external ServiceNow client for Automation Factory Lite:
+  - `services/servicenow_sim/external_client.py`
+- Added external MCP worker flow:
+  - `services/servicenow_sim/external_agent.py`
+  - `/api/servicenow-mcp/agent/run` now processes queue from external ServiceNow service.
+- Added proxy-style MCP endpoints in AFL backend:
+  - `/api/servicenow-mcp/cases*`
+  - `/api/servicenow-mcp/agent/run`
+- MCP status endpoint now reports external service reachability and bridge degradation state.
+- Added helper script:
+  - `scripts/run_servicenow_sim.sh`
+
+### Mocked
+- External ServiceNow is still simulation; integration pattern now mirrors separated real-service topology.
+
+### Tests Passed
+- `python -m pytest -q` -> `29 passed`
+- `npm test -- --run` -> passed
+- `npm run build` -> passed
+- `make lint` -> passed
+
+### Remaining
+- Optional: replace simulated ServiceNow API with real ServiceNow OAuth/table APIs under same external-client contract.
+
+### Risks / Blockers
+- Running only backend/frontend without starting ServiceNow-sim service leaves MCP status in degraded mode (by design).
+
+## Block 15 - Conflict-Safe Ports + MCP Bridge Hardening
+### Implemented
+- Normalized local default ports to reduce conflicts with common dev processes:
+  - AFL backend: `18010`
+  - AFL frontend: `13000`
+  - ServiceNow-sim API: `18095`
+- Updated config defaults:
+  - `.env.example`
+  - `apps/backend/app/settings.py`
+  - `apps/frontend/src/lib/api.ts`
+  - `docker-compose.yml` default host mappings.
+- Updated local `.env` with the same conflict-safe defaults and explicit ServiceNow bridge config:
+  - `SERVICENOW_MCP_MODE=external_http_bridge`
+  - `SERVICENOW_SIM_HOST`, `SERVICENOW_SIM_PORT`
+  - `SERVICENOW_EXTERNAL_BASE_URL=http://127.0.0.1:18095`
+- Added operational run scripts with port-collision guardrails:
+  - `scripts/run_backend.sh`
+  - `scripts/run_frontend.sh`
+  - `scripts/run_servicenow_sim.sh` (enhanced to read `.env` + check free port)
+  - `scripts/run_dev_stack.sh` (single command startup for all services).
+- Added Make targets:
+  - `run-backend`, `run-frontend`, `run-servicenow`, `run-dev`.
+- Hardened MCP bridge endpoints in backend:
+  - `/api/servicenow-mcp/*` now fail fast with `503` and explicit reason when bridge/service is disabled or unreachable.
+  - `/api/servicenow/mcp/status` now exposes integration model and expected external service host/port.
+
+### Mocked
+- ServiceNow remains simulated (separate service process), but now via explicit external bridge contract from AFL.
+
+### Tests Passed
+- `pytest tests/backend tests/integration tests/orchestrator -q` -> passed (`22 passed`).
+- `cd apps/frontend && npm test -- --run` -> passed (`1 passed`).
+
+### Remaining
+- Optional: add real ServiceNow OAuth/table implementation behind the same `ExternalServiceNowClient` contract.
+- Optional: add a dedicated process supervisor (systemd/pm2) for persistent local lab runtime.
+
+### Risks / Blockers
+- If external ServiceNow-sim service is down, MCP queue operations intentionally return `503` (explicitly visible in UI/API).
+
+## Block 16 - ServiceNow Standalone Portal + AFL Connector Renaming
+### Implemented
+- Exposed ServiceNow as standalone UI on dedicated service/port:
+  - `GET /` on ServiceNow-sim (`:18095`) now serves ServiceNow portal (no more root 404).
+  - Portal manages queue visibility and dispatches pending cases to AFL connector.
+- Added ServiceNow-sim integration proxy endpoints:
+  - `GET /api/automation/mcp/status` (proxy to AFL connector status)
+  - `POST /api/automation/agent/run` (dispatch to AFL `/api/servicenow-mcp/agent/run`)
+- Renamed AFL business module from `ServiceNow MCP` to `ServiceNow Connector`:
+  - new route: `/servicenow-connector`
+  - legacy route `/servicenow-mcp` kept as redirect for compatibility.
+- Updated AFL navigation and technical view links to use connector naming.
+
+### Mocked
+- ServiceNow remains simulated, but with separated UI/service boundary that mirrors real platform topology.
+
+### Tests Passed
+- `pytest tests/backend tests/integration tests/orchestrator -q` -> passed (`22 passed`).
+- `cd apps/frontend && npm test -- --run` -> passed (`1 passed`).
+
+### Remaining
+- Optional: add automated browser test for ServiceNow standalone portal.
+- Optional: replace simulated ServiceNow APIs with real ServiceNow OAuth/table APIs under the same proxy contract.
+
+### Risks / Blockers
+- ServiceNow portal dispatch action depends on AFL backend availability; if AFL is down, dispatch endpoint returns `502` with explicit error.
+
+## Block 17 - ServiceNow Portal UX Realism Tuning
+### Implemented
+- Reworded ServiceNow standalone portal copy to business/operations language (less technical endpoint-centric text).
+- Updated main actions for realistic operator flow:
+  - `Create Demo Cases`
+  - `Dispatch Eligible Cases`
+  - `Refresh Queue`
+- Improved queue table to resemble incident/work queue usage:
+  - columns now include short description, priority, assignment group.
+- Kept technical details in secondary context while preserving traceability.
+- Added configurable link from ServiceNow portal to AFL connector UI via:
+  - `AFL_FRONTEND_BASE_URL`
+
+### Mocked
+- ServiceNow remains simulated, but UX now better mirrors practical ITSM usage semantics.
+
+### Tests Passed
+- `pytest tests/backend tests/integration tests/orchestrator -q` -> passed (`22 passed`).
+- `cd apps/frontend && npm test -- --run` -> passed (`1 passed`).
+- `cd apps/frontend && npm run build` -> passed.
+
+### Remaining
+- Optional: add server-side templating or separate static assets for easier portal theming/customization.
+
+### Risks / Blockers
+- Visual parity with full enterprise ServiceNow product remains intentionally approximate (no product cloning).
+
+## Block 18 - Demo Case Seeding Feedback and Forced Batches
+### Implemented
+- Added forced seeding path for ServiceNow demo queue:
+  - `POST /api/cases/seed?force=true` creates a fresh batch every click.
+  - Each forced batch gets unique tags in short description/username to avoid “no visible change” confusion.
+- Updated ServiceNow standalone portal button behavior:
+  - `Create Demo Cases` now calls forced seeding and shows explicit success/failure summary.
+- Propagated forced seeding support to AFL connector/local technical views:
+  - `/api/servicenow-mcp/cases/seed?force=true`
+  - `/api/servicenow/cases/seed?force=true`
+- Extended external client and backend bridge endpoints to accept `force` flag.
+
+### Mocked
+- None in this block.
+
+### Tests Passed
+- `pytest tests/backend tests/integration tests/orchestrator -q` -> passed (`22 passed`).
+- `cd apps/frontend && npm test -- --run` -> passed (`1 passed`).
+- `cd apps/frontend && npm run build` -> passed.
+
+### Remaining
+- Optional: add a dedicated “idempotent seed” button for teams that prefer static repeatable demo dataset.
+
+### Risks / Blockers
+- Repeated forced seeding intentionally grows queue volume; use periodically clean/reset procedures in long demo sessions.
+
+## Block 19 - Expanded Operational Catalog + Seed Idempotency + Full Certification
+### Implemented
+- Expanded approved automation catalog end-to-end (analyzer, policy, blueprint factory, AWX canonical mapping, CMDB permissions, ServiceNow mapping):
+  - `create_user`, `delete_user`, `reset_password`, `add_ssh_key`
+  - `create_directory`
+  - `install_service`, `install_package`, `restart_service`, `manage_service`, `install_agent`
+  - `deploy_template`
+  - `check_uptime`, `check_patch_status`, `check_connectivity`
+- Added secure static playbooks for the new actions:
+  - `ansible/playbooks/delete_user.yml`
+  - `ansible/playbooks/reset_password.yml`
+  - `ansible/playbooks/add_ssh_key.yml`
+  - `ansible/playbooks/create_directory.yml`
+  - `ansible/playbooks/install_package.yml`
+  - `ansible/playbooks/restart_service.yml`
+  - `ansible/playbooks/check_uptime.yml`
+  - `ansible/playbooks/check_patch_status.yml`
+  - `ansible/playbooks/check_connectivity.yml`
+- Updated AWX job-template bootstrap definitions to include the expanded playbook set.
+- Fixed `manage_service` static playbook to consume `state` from request params.
+- Adjusted ServiceNow simulation seeding model:
+  - default seed is now idempotent (no duplicate queue flooding).
+  - forced seeding is still available via API (`force=true`) for controlled test batches.
+  - demo queue now includes varied real-like case payloads across user/access, resources, services/software, diagnostics/compliance, and one unsupported case.
+- UI/UX updates:
+  - AFL `/servicenow-connector`: sync button now non-duplicating and explicit that MCP worker executes real backend endpoint.
+  - Intake examples now include expanded catalog operations.
+
+### Mocked
+- AWX real execution is still environment-dependent; mock mode remains validated fallback.
+- ServiceNow remains simulated but integrated through external MCP bridge contract.
+
+### Tests Passed
+- `pytest tests/backend tests/integration tests/orchestrator -q` -> passed (`34 passed`).
+- `pytest tests/ansible/test_ansible_validation.py -q` -> passed (`16 passed`).
+- `pytest -q` -> passed (`50 passed`).
+- `cd apps/frontend && npm test -- --run` -> passed (`1 passed`).
+- `cd apps/frontend && npm run build` -> passed (all routes build successfully).
+
+### Remaining
+- Validate full AWX real execution for each newly added catalog action against reachable hosts/repositories.
+- Optional: add browser E2E tests for ServiceNow standalone and AFL connector UI interactions.
+
+### Risks / Blockers
+- Some package/service outcomes in real hosts depend on repository availability and host state (expected for OL9/Rocky lab conditions).

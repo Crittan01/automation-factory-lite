@@ -30,10 +30,19 @@ class AWXExecutionResult:
 
 JOB_TEMPLATE_DEFINITIONS = [
     ('AFL - Create User', 'ansible/playbooks/create_user.yml'),
+    ('AFL - Delete User', 'ansible/playbooks/delete_user.yml'),
+    ('AFL - Reset Password', 'ansible/playbooks/reset_password.yml'),
+    ('AFL - Add SSH Key', 'ansible/playbooks/add_ssh_key.yml'),
+    ('AFL - Create Directory', 'ansible/playbooks/create_directory.yml'),
     ('AFL - Install Service', 'ansible/playbooks/install_service.yml'),
+    ('AFL - Install Package', 'ansible/playbooks/install_package.yml'),
+    ('AFL - Restart Service', 'ansible/playbooks/restart_service.yml'),
     ('AFL - Manage Service', 'ansible/playbooks/manage_service.yml'),
     ('AFL - Install Agent', 'ansible/playbooks/install_agent.yml'),
     ('AFL - Deploy Template', 'ansible/playbooks/deploy_template.yml'),
+    ('AFL - Check Uptime', 'ansible/playbooks/check_uptime.yml'),
+    ('AFL - Check Patch Status', 'ansible/playbooks/check_patch_status.yml'),
+    ('AFL - Check Connectivity', 'ansible/playbooks/check_connectivity.yml'),
 ]
 
 WORKFLOW_TEMPLATE_NAME = 'AFL - Low Risk Factory Workflow'

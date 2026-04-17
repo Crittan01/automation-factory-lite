@@ -10,6 +10,10 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
 
 
+def _generate_ticket_id() -> str:
+    return f"AFL-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}-{str(uuid.uuid4())[:8]}"
+
+
 class TimestampMixin:
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -53,6 +57,7 @@ class AutomationRequest(Base, TimestampMixin):
     __tablename__ = 'automation_requests'
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    ticket_id: Mapped[str] = mapped_column(String(128), index=True, default=_generate_ticket_id)
     raw_request: Mapped[str] = mapped_column(Text)
     requester: Mapped[str] = mapped_column(String(255), default='demo.user')
     structured_spec: Mapped[dict] = mapped_column(JSON, default=dict)
@@ -86,6 +91,7 @@ class ExecutionRecord(Base, TimestampMixin):
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     request_id: Mapped[str] = mapped_column(String(36), index=True)
+    ticket_id: Mapped[Optional[str]] = mapped_column(String(128), index=True, nullable=True)
     awx_mode: Mapped[str] = mapped_column(String(16), default='mock')
     template_name: Mapped[str] = mapped_column(String(255))
     hosts: Mapped[list] = mapped_column(JSON, default=list)
@@ -116,7 +122,45 @@ class AuditLog(Base):
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     request_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True, index=True)
+    ticket_id: Mapped[Optional[str]] = mapped_column(String(128), nullable=True, index=True)
     event_type: Mapped[str] = mapped_column(String(64), index=True)
     message: Mapped[str] = mapped_column(Text)
     payload: Mapped[dict] = mapped_column(JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class ServiceNowCase(Base, TimestampMixin):
+    __tablename__ = 'servicenow_cases'
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    number: Mapped[str] = mapped_column(String(32), unique=True, index=True)
+    short_description: Mapped[str] = mapped_column(Text)
+    description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    request_type: Mapped[Optional[str]] = mapped_column(String(64), nullable=True, index=True)
+    params: Mapped[dict] = mapped_column(JSON, default=dict)
+    targets: Mapped[list] = mapped_column(JSON, default=list)
+    priority: Mapped[str] = mapped_column(String(8), default='3')
+    state: Mapped[str] = mapped_column(String(32), default='new', index=True)
+    assignment_group: Mapped[str] = mapped_column(String(128), default='automation.factory')
+    requested_by: Mapped[str] = mapped_column(String(255), default='servicenow.user')
+    automation_request_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True, index=True)
+    execution_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True, index=True)
+    resolution_notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    last_agent_run_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    source: Mapped[str] = mapped_column(String(32), default='servicenow_sim')
+
+    events: Mapped[list['ServiceNowCaseEvent']] = relationship('ServiceNowCaseEvent', back_populates='case')
+
+
+class ServiceNowCaseEvent(Base):
+    __tablename__ = 'servicenow_case_events'
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    case_id: Mapped[str] = mapped_column(String(36), ForeignKey('servicenow_cases.id'), index=True)
+    actor: Mapped[str] = mapped_column(String(64))
+    event_type: Mapped[str] = mapped_column(String(64))
+    message: Mapped[str] = mapped_column(Text)
+    payload: Mapped[dict] = mapped_column(JSON, default=dict)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    case: Mapped['ServiceNowCase'] = relationship('ServiceNowCase', back_populates='events')

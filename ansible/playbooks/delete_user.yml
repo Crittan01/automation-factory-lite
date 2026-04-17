@@ -1,0 +1,14 @@
+---
+- name: Delete non-privileged user
+  hosts: "{{ target_hosts | default('lab') }}"
+  become: true
+  gather_facts: false
+  vars:
+    username: "{{ username | default('operador_demo') }}"
+    remove_home: "{{ remove_home | default(false) }}"
+  tasks:
+    - name: Ensure user is absent
+      ansible.builtin.user:
+        name: "{{ username }}"
+        state: absent
+        remove: "{{ remove_home }}"

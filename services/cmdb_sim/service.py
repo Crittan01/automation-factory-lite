@@ -9,10 +9,19 @@ from app.models import CMDBHost
 
 ALLOWED_ACTIONS = [
     'create_user',
+    'delete_user',
+    'reset_password',
+    'add_ssh_key',
+    'create_directory',
     'install_service',
+    'install_package',
+    'restart_service',
     'manage_service',
     'install_agent',
     'deploy_template',
+    'check_uptime',
+    'check_patch_status',
+    'check_connectivity',
 ]
 
 

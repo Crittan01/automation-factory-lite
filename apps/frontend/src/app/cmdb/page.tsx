@@ -31,7 +31,7 @@ export default function CmdbPage() {
   return (
     <AppShell>
       <section className="card p-5">
-        <h2 className="text-xl font-bold">CMDB Simulada</h2>
+        <h2 className="text-xl font-bold">CMDB</h2>
         <div className="mt-3 grid gap-2 md:grid-cols-4">
           <input
             placeholder="environment"

@@ -36,10 +36,35 @@ def _validate_supported(spec: dict) -> tuple[bool, str]:
         if req not in params:
             return False, f'Missing required parameter: {req}'
 
+    if request_type in {'reset_password'}:
+        password_hash = str(params.get('password_hash') or '')
+        if not password_hash.startswith('$6$'):
+            return False, 'password_hash must be SHA-512 crypt format ($6$...).'
+
+    if request_type == 'add_ssh_key':
+        ssh_key = str(params.get('ssh_public_key') or '')
+        if not (ssh_key.startswith('ssh-rsa ') or ssh_key.startswith('ssh-ed25519 ')):
+            return False, 'SSH key must start with ssh-rsa or ssh-ed25519.'
+
+    if request_type == 'create_directory':
+        destination = str(params.get('directory_path') or '')
+        if not any(destination.startswith(path) for path in blueprint.get('allowed_paths', [])):
+            return False, 'Directory path outside allow list.'
+
     if request_type in {'install_service', 'manage_service'}:
         service = params.get('service_name')
         if service not in blueprint.get('allowed_services', []):
             return False, 'Service not in allow list.'
+
+    if request_type == 'restart_service':
+        service = params.get('service_name')
+        if service not in blueprint.get('allowed_services', []):
+            return False, 'Service not in allow list for restart.'
+
+    if request_type == 'install_package':
+        package_name = params.get('package_name')
+        if package_name not in blueprint.get('allowed_packages', []):
+            return False, 'Package not in allow list.'
 
     if request_type == 'manage_service':
         state = params.get('state')
@@ -56,6 +81,11 @@ def _validate_supported(spec: dict) -> tuple[bool, str]:
         destination = params.get('destination_path', '')
         if not any(destination.startswith(path) for path in blueprint.get('allowed_paths', [])):
             return False, 'Destination path outside allow list.'
+
+    if request_type == 'check_connectivity':
+        target = str(params.get('connectivity_target') or '').strip()
+        if target == '':
+            return False, 'connectivity_target is required.'
 
     return True, 'Blueprint validation passed.'
 

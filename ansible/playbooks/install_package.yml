@@ -1,0 +1,16 @@
+---
+- name: Install approved package
+  hosts: "{{ target_hosts | default('lab') }}"
+  become: true
+  gather_facts: true
+  vars:
+    package_name: "{{ package_name | default('jq') }}"
+  tasks:
+    - name: Validate package
+      ansible.builtin.assert:
+        that:
+          - package_name in ['jq', 'curl', 'git', 'rsync', 'htop', 'cockpit']
+    - name: Ensure package present
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present

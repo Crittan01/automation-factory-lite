@@ -8,7 +8,7 @@ from services.cmdb_sim.service import validate_targets
 
 def test_cmdb_target_validation() -> None:
     with SessionLocal() as db:
-        result = validate_targets(db, ['ol9server1'], 'create_user')
+        result = validate_targets(db, ['ol9server1'], 'create_directory')
         assert len(result.valid_hosts) == 1
         assert result.missing_targets == []
         assert result.denied_targets == []
@@ -42,3 +42,4 @@ def test_cmdb_seed_has_hosts() -> None:
     with SessionLocal() as db:
         hosts = db.execute(select(CMDBHost)).scalars().all()
         assert len(hosts) >= 2
+        assert any('create_directory' in (host.allowed_actions or []) for host in hosts)

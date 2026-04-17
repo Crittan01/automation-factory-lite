@@ -8,13 +8,20 @@ import type { IntakeResponse } from '@/lib/types';
 
 const EXAMPLES = [
   'Crear usuario analista1 en ol9server1 sin sudo',
-  'Instalar nginx en rocky9server1',
-  'Instalar agente telegraf en ol9server1 y rocky9server1',
+  'Eliminar usuario legacy_user en ol9server1',
+  'Añadir clave SSH a usuario analista1 en ol9server1',
+  'Crear carpeta /opt/automation_factory_lite/jobs/demo en rocky9server1',
+  'Instalar paquete jq en rocky9server1',
+  'Reiniciar servicio nginx en rocky9server1',
+  'Obtener uptime en ol9server1',
+  'Verificar estado de parches en rocky9server1',
+  'Chequeo de conectividad a 8.8.8.8 desde ol9server1',
 ];
 
 export default function IntakePage() {
   const [mode, setMode] = useState<'form' | 'chat'>('form');
   const [text, setText] = useState(EXAMPLES[0]);
+  const [ticketId, setTicketId] = useState('AFL-DEMO-001');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<IntakeResponse | null>(null);
   const [error, setError] = useState('');
@@ -26,6 +33,7 @@ export default function IntakePage() {
       const response = await apiPost<IntakeResponse>('/api/requests', {
         text,
         requester: 'demo.user',
+        ticket_id: ticketId,
       });
       setResult(response);
     } catch (err) {
@@ -76,6 +84,16 @@ export default function IntakePage() {
         </div>
 
         <div className="mt-4">
+          <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">Ticket ID</label>
+          <input
+            value={ticketId}
+            onChange={(event) => setTicketId(event.target.value)}
+            placeholder="AFL-INC-20260417-001"
+            className="w-full rounded-xl border border-slate-200 bg-white p-3 text-sm"
+          />
+        </div>
+
+        <div className="mt-4">
           <textarea
             value={text}
             onChange={(event) => setText(event.target.value)}
@@ -102,6 +120,7 @@ export default function IntakePage() {
             <p className="mt-2 text-sm">
               Estado: <span className="badge bg-sky-100 text-sky-700">{result.status}</span>
             </p>
+            <p className="mt-1 text-sm text-slate-600">Ticket: {result.ticket_id}</p>
             {result.rejection_reason ? (
               <p className="mt-2 text-sm text-red-700">Motivo: {result.rejection_reason}</p>
             ) : null}

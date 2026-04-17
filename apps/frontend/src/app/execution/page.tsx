@@ -21,6 +21,7 @@ export default function ExecutionPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-slate-500">
+                <th>Ticket</th>
                 <th>Template</th>
                 <th>Hosts</th>
                 <th>Modo</th>
@@ -32,6 +33,7 @@ export default function ExecutionPage() {
             <tbody>
               {items.map((item) => (
                 <tr key={item.id} className="border-t border-slate-100">
+                  <td className="py-2 font-mono text-xs">{item.ticket_id ?? '-'}</td>
                   <td className="py-2">{item.template_name}</td>
                   <td className="py-2">{item.hosts.join(', ')}</td>
                   <td className="py-2">{item.awx_mode}</td>

@@ -16,10 +16,19 @@ FORBIDDEN_KEYWORDS = [
 
 SUPPORTED_ACTIONS = {
     'create_user',
+    'delete_user',
+    'reset_password',
+    'add_ssh_key',
+    'create_directory',
     'install_service',
+    'install_package',
+    'restart_service',
     'manage_service',
     'install_agent',
     'deploy_template',
+    'check_uptime',
+    'check_patch_status',
+    'check_connectivity',
 }
 
 
@@ -47,13 +56,29 @@ def classify_risk(spec: dict, host_context: list[dict]) -> PolicyDecision:
     if request_type not in SUPPORTED_ACTIONS:
         return PolicyDecision(
             risk_level='high',
-            reason='Tipo de automatización fuera del catálogo permitido V1.',
+            reason='Tipo de automatización fuera del catálogo permitido.',
             requires_approval=False,
             allowed=False,
         )
 
     environments = {h.get('environment', 'dev') for h in host_context}
     criticalities = {h.get('criticality', 'medium') for h in host_context}
+
+    if request_type in {'delete_user', 'reset_password', 'add_ssh_key'}:
+        return PolicyDecision(
+            risk_level='medium',
+            reason='Cambio de identidad/acceso requiere aprobación humana.',
+            requires_approval=True,
+            allowed=True,
+        )
+
+    if request_type == 'restart_service':
+        return PolicyDecision(
+            risk_level='medium',
+            reason='Reinicio de servicio implica impacto operativo y requiere aprobación.',
+            requires_approval=True,
+            allowed=True,
+        )
 
     if request_type == 'manage_service' and params.get('state') in {'stop', 'restart'}:
         return PolicyDecision(

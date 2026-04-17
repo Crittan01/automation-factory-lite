@@ -231,3 +231,29 @@
 
 ### Risks / Blockers
 - Current AWX run still reflects previous remote playbook content until changes are pushed/synced.
+
+## Block 9 - AWX Publish Failure Diagnosis and Fix
+### Implemented
+- Diagnosed real failure seen in intake requests (`status=failed`) with reason:
+  - `400 Client Error: Bad Request for url: https://ol9-awx.lab.com/api/v2/job_templates/`
+- Root cause: generated runtime playbook paths (`generated/...`) are not visible to AWX SCM project.
+- Implemented AWX-safe fallback in orchestrator publish step:
+  - when automation points to `generated/...`, real execution publishes canonical safe playbook by request type (`ansible/playbooks/*.yml`).
+- Improved failure observability:
+  - Intake UI now shows `rejection_reason` and `risk_reason` directly.
+  - Execution failure now stores richer HTTP error details when AWX returns a body.
+
+### Mocked
+- None in this block.
+
+### Tests Passed
+- `tests/integration/test_end_to_end_mock.py`
+- `tests/orchestrator/test_orchestrator_transitions.py`
+- `tests/backend/test_analyzer.py`
+
+### Remaining
+- Restart backend/frontend processes to load the fix.
+- Re-run intake scenarios and validate execution records in `/execution` and audit entries in `/audit`.
+
+### Risks / Blockers
+- If AWX still returns 400 after this fix, next likely cause is project sync/credential/template constraints in AWX rather than playbook path resolution.

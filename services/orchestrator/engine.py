@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any, TypedDict
+import requests
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -346,9 +347,24 @@ class AutomationOrchestrator:
 
         awx_client = build_awx_client(self.config.settings)
         playbook_path = automation.playbook_path
+        spec = state.get('spec') or {}
+        request_type = spec.get('request_type')
+        canonical_playbooks = {
+            'create_user': 'ansible/playbooks/create_user.yml',
+            'install_service': 'ansible/playbooks/install_service.yml',
+            'manage_service': 'ansible/playbooks/manage_service.yml',
+            'install_agent': 'ansible/playbooks/install_agent.yml',
+            'deploy_template': 'ansible/playbooks/deploy_template.yml',
+        }
         # Backward compatibility for older catalog entries seeded as `playbooks/...`.
         if isinstance(playbook_path, str) and playbook_path.startswith('playbooks/'):
             playbook_path = f'ansible/{playbook_path}'
+        # In AWX real mode, generated runtime paths (`generated/...`) are not visible in SCM project.
+        # Use canonical safe playbooks for supported request types.
+        if isinstance(playbook_path, str):
+            normalized = playbook_path.lstrip('./')
+            if normalized.startswith('generated/') or normalized.startswith('ansible/generated/'):
+                playbook_path = canonical_playbooks.get(request_type, playbook_path)
 
         try:
             awx_client.publish_job_template(
@@ -398,8 +414,15 @@ class AutomationOrchestrator:
             )
             return {**state, 'execution': execution}
         except Exception as exc:
+            reason = str(exc)
+            if isinstance(exc, requests.HTTPError) and exc.response is not None:
+                response_text = (exc.response.text or '').strip()
+                if response_text:
+                    reason = f"{exc.response.status_code} {exc.response.reason}: {response_text}"
+                else:
+                    reason = f"{exc.response.status_code} {exc.response.reason}"
             req.status = 'failed'
-            req.rejection_reason = str(exc)
+            req.rejection_reason = reason
             db.add(req)
             self._event(
                 db,
@@ -407,16 +430,16 @@ class AutomationOrchestrator:
                 actor='Revisor/Publicador',
                 step='publish_execute',
                 status='error',
-                payload={'error': str(exc)},
+                payload={'error': reason},
             )
             self._audit(
                 db,
                 req.id,
                 event_type='execution_failure',
                 message='Execution failed.',
-                payload={'error': str(exc)},
+                payload={'error': reason},
             )
-            return {**state, 'rejected': True, 'rejection_reason': str(exc)}
+            return {**state, 'rejected': True, 'rejection_reason': reason}
 
     def process_request(self, db: Session, request: AutomationRequest) -> AutomationRequest:
         state: OrchestratorState = {'db': db, 'request': request}

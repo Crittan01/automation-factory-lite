@@ -102,6 +102,10 @@ export default function IntakePage() {
             <p className="mt-2 text-sm">
               Estado: <span className="badge bg-sky-100 text-sky-700">{result.status}</span>
             </p>
+            {result.rejection_reason ? (
+              <p className="mt-2 text-sm text-red-700">Motivo: {result.rejection_reason}</p>
+            ) : null}
+            {result.risk_reason ? <p className="mt-1 text-xs text-slate-600">Riesgo: {result.risk_reason}</p> : null}
             <pre className="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-xs text-sky-100">
               {JSON.stringify(result.structured_spec, null, 2)}
             </pre>

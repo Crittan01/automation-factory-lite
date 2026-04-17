@@ -1,0 +1,15 @@
+---
+- name: Create non-sudo user
+  hosts: "{{ target_hosts | default('lab') }}"
+  become: true
+  gather_facts: false
+  vars:
+    username: "{{ username | default('operador_demo') }}"
+  tasks:
+    - name: Ensure user exists without sudo group
+      ansible.builtin.user:
+        name: "{{ username }}"
+        groups: ""
+        append: false
+        shell: /bin/bash
+        state: present

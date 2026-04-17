@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Databases
+*.db
+
+# Frontend
+apps/frontend/node_modules/
+apps/frontend/.next/
+
+# Generated automation outputs
+ansible/generated/*
+!ansible/generated/.gitkeep
+
+# Env files
+.env

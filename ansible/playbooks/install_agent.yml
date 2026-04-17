@@ -1,0 +1,16 @@
+---
+- name: Install allowed agent
+  hosts: "{{ target_hosts | default('lab') }}"
+  become: true
+  gather_facts: true
+  vars:
+    agent_name: "{{ agent_name | default('telegraf') }}"
+  tasks:
+    - name: Validate allowed agent
+      ansible.builtin.assert:
+        that:
+          - agent_name in ['node_exporter', 'telegraf']
+    - name: Install allowed agent package
+      ansible.builtin.package:
+        name: "{{ agent_name }}"
+        state: present

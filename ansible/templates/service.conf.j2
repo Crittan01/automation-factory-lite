@@ -1,0 +1,8 @@
+# Managed by Automation Factory Lite
+server {
+  listen 80;
+  server_name {{ inventory_hostname }};
+  location / {
+    return 200 "Automation Factory Lite on {{ inventory_hostname }}\n";
+  }
+}

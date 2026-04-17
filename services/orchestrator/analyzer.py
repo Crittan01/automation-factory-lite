@@ -67,13 +67,15 @@ def analyze_request(text: str, known_hosts: list[dict]) -> AnalysisResult:
 
     elif ('instalar' in lowered or 'install' in lowered) and ('agente' in lowered or 'agent' in lowered):
         request_type = 'install_agent'
-        if 'node_exporter' in lowered:
+        if 'cockpit' in lowered:
+            params['agent_name'] = 'cockpit'
+        elif 'node_exporter' in lowered:
             params['agent_name'] = 'node_exporter'
         elif 'telegraf' in lowered:
             params['agent_name'] = 'telegraf'
         else:
-            params['agent_name'] = 'telegraf'
-            warnings.append('No se detectó agente explícito, se aplicó telegraf por default.')
+            params['agent_name'] = 'cockpit'
+            warnings.append('No se detectó agente explícito, se aplicó cockpit por default para OL9.')
 
     elif any(keyword in lowered for keyword in ['template', 'plantilla', 'deploy', 'desplegar']):
         request_type = 'deploy_template'

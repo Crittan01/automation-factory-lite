@@ -16,3 +16,12 @@ def test_analyzer_service_install() -> None:
 
     assert result.spec['request_type'] == 'install_service'
     assert result.spec['params']['service_name'] == 'nginx'
+
+
+def test_analyzer_agent_default_cockpit() -> None:
+    hosts = [{'hostname': 'ol9server1', 'ip': '192.168.250.30'}]
+    result = analyze_request('Instalar agente en ol9server1', hosts)
+
+    assert result.spec['request_type'] == 'install_agent'
+    assert result.spec['params']['agent_name'] == 'cockpit'
+    assert any('cockpit' in warning for warning in result.warnings)

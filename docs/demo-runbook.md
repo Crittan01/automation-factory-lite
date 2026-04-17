@@ -20,7 +20,7 @@ Demonstrate end-to-end flow with visible multi-agent traceability.
    - `Instalar nginx en rocky9server1`
 5. Validate catalog entry was generated/reused in Catálogo view.
 6. Open Intake and run scenario 3:
-   - `Instalar agente telegraf en ol9server1 y rocky9server1`
+   - `Instalar agente cockpit en ol9server1 y rocky9server1`
 7. Open Aprobaciones view:
    - approve pending request
 8. Open Ejecución AWX view:
@@ -37,6 +37,7 @@ bash scripts/demo_scenarios.sh
 - Scenario 1: low risk, auto-executed.
 - Scenario 2: low risk, auto-executed.
 - Scenario 3: medium risk, pending approval then executed.
+- In real lab mode, scenario 3 uses `cockpit` by default for OL9.
 
 ## AWX Real Note
 - If the AWX project repository does not yet include the V1 playbooks, templates can still launch via fallback mapping for connectivity validation, but functional semantics of V1 actions must be validated after real playbook paths are present.

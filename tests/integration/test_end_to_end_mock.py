@@ -37,7 +37,7 @@ def test_end_to_end_medium_requires_approval() -> None:
 
     with SessionLocal() as db:
         req = AutomationRequest(
-            raw_request='Instalar agente telegraf en ol9server1 y rocky9server1',
+            raw_request='Instalar agente cockpit en ol9server1 y rocky9server1',
             requester='tester',
         )
         db.add(req)

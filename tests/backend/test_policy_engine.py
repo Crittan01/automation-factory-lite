@@ -19,7 +19,7 @@ def test_policy_medium_risk_for_multi_host_agent() -> None:
     spec = {
         'raw_text': 'instalar agente',
         'request_type': 'install_agent',
-        'params': {'agent_name': 'telegraf'},
+        'params': {'agent_name': 'cockpit'},
         'targets': ['ol9server1', 'rocky9server1'],
     }
     hosts = [{'environment': 'dev', 'criticality': 'medium'}]

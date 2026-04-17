@@ -4,6 +4,7 @@ import json
 import uuid
 from dataclasses import dataclass
 from datetime import datetime
+import time
 
 import requests
 
@@ -28,11 +29,11 @@ class AWXExecutionResult:
 
 
 JOB_TEMPLATE_DEFINITIONS = [
-    ('AFL - Create User', 'playbooks/create_user.yml'),
-    ('AFL - Install Service', 'playbooks/install_service.yml'),
-    ('AFL - Manage Service', 'playbooks/manage_service.yml'),
-    ('AFL - Install Agent', 'playbooks/install_agent.yml'),
-    ('AFL - Deploy Template', 'playbooks/deploy_template.yml'),
+    ('AFL - Create User', 'ansible/playbooks/create_user.yml'),
+    ('AFL - Install Service', 'ansible/playbooks/install_service.yml'),
+    ('AFL - Manage Service', 'ansible/playbooks/manage_service.yml'),
+    ('AFL - Install Agent', 'ansible/playbooks/install_agent.yml'),
+    ('AFL - Deploy Template', 'ansible/playbooks/deploy_template.yml'),
 ]
 
 WORKFLOW_TEMPLATE_NAME = 'AFL - Low Risk Factory Workflow'
@@ -305,6 +306,26 @@ class RealAWXClient(BaseAWXClient):
             return [str(item) for item in response]
         return []
 
+    def _sync_project(self, project_id: int, timeout_seconds: int = 180) -> None:
+        update = self._post(f'/api/v2/projects/{project_id}/update/', {})
+        update_id = int(update.get('project_update') or update.get('id') or 0)
+        if update_id <= 0:
+            return
+
+        deadline = time.time() + timeout_seconds
+        while time.time() < deadline:
+            status = self._get(f'/api/v2/project_updates/{update_id}/')
+            state = str(status.get('status') or '').lower()
+            if state in {'successful', 'failed', 'error', 'canceled'}:
+                if state != 'successful':
+                    raise RuntimeError(
+                        f'AWX project sync failed for project_id={project_id} with status={state}.'
+                    )
+                return
+            time.sleep(2)
+
+        raise RuntimeError(f'AWX project sync timeout for project_id={project_id}.')
+
     def bootstrap(self) -> AWXBootstrapResult:
         org = self._resolve_organization()
         project = self._create_or_update_project(org_id=org['id'])
@@ -326,6 +347,9 @@ class RealAWXClient(BaseAWXClient):
         playbook_mapping: dict[str, str] = {}
         unresolved_playbooks: dict[str, str] = {}
         available_playbooks = self._list_project_playbooks(project['id'])
+        if not available_playbooks and self.project_scm_type != 'manual':
+            self._sync_project(int(project['id']))
+            available_playbooks = self._list_project_playbooks(project['id'])
         fallback_playbook = available_playbooks[0] if available_playbooks else None
 
         for name, playbook_path in JOB_TEMPLATE_DEFINITIONS:

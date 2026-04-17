@@ -17,6 +17,6 @@ echo "[2/3] Instalar nginx en host2"
 call_create "Instalar nginx en rocky9server1"
 
 echo "[3/3] Instalar agente en ambos hosts (requiere aprobación)"
-call_create "Instalar agente telegraf en ol9server1 y rocky9server1"
+call_create "Instalar agente cockpit en ol9server1 y rocky9server1"
 
 echo "Revisar pendientes en ${API_BASE}/api/approvals/pending"

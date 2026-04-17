@@ -76,23 +76,52 @@ SAFE_BLUEPRINTS = {
     'install_agent': {
         'required': ['agent_name'],
         'optional': ['version'],
-        'allowed_agents': ['node_exporter', 'telegraf'],
+        'allowed_agents': ['cockpit', 'node_exporter', 'telegraf'],
         'template': """---
 - name: Install approved monitoring agent
   hosts: {{ targets_pattern }}
   become: true
   gather_facts: true
+  vars:
+    agent_packages:
+      cockpit:
+        primary: "cockpit"
+        fallback: "cockpit-ws"
+      node_exporter:
+        primary: "prometheus-node-exporter"
+        fallback: "node_exporter"
+      telegraf:
+        primary: "telegraf"
+        fallback: ""
   tasks:
     - name: Validate agent
       ansible.builtin.assert:
         that:
-          - agent_name in ['node_exporter', 'telegraf']
+          - agent_name in ['cockpit', 'node_exporter', 'telegraf']
         fail_msg: "Agent not allowed by policy"
 
-    - name: Ensure agent package is present
-      ansible.builtin.package:
-        name: "{{ agent_name }}"
-        state: present
+    - name: Resolve package candidates
+      ansible.builtin.set_fact:
+        agent_package_primary: "{{ agent_packages[agent_name].primary }}"
+        agent_package_fallback: "{{ agent_packages[agent_name].fallback }}"
+
+    - name: Install approved agent package
+      block:
+        - name: Install primary package candidate
+          ansible.builtin.package:
+            name: "{{ agent_package_primary }}"
+            state: present
+      rescue:
+        - name: Fail when no fallback package is configured
+          ansible.builtin.fail:
+            msg: "Primary package {{ agent_package_primary }} not available and no fallback is configured."
+          when: agent_package_fallback | length == 0
+
+        - name: Install fallback package candidate
+          ansible.builtin.package:
+            name: "{{ agent_package_fallback }}"
+            state: present
+          when: agent_package_fallback | length > 0
 """,
     },
     'deploy_template': {

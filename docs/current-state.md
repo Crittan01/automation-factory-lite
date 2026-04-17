@@ -164,3 +164,70 @@
 
 ### Risks / Blockers
 - AWX real execution currently uses fallback playbook mapping until V1 playbooks are published in AWX project source.
+
+## Block 7 - AWX Real Mapping Finalized on automation-factory-lite Repo
+### Implemented
+- Repointed AWX SCM to user repository:
+  - `https://github.com/Crittan01/automation-factory-lite.git`
+  - branch: `develop`
+- Updated AWX template definitions to V1 playbook paths under repo:
+  - `ansible/playbooks/create_user.yml`
+  - `ansible/playbooks/install_service.yml`
+  - `ansible/playbooks/manage_service.yml`
+  - `ansible/playbooks/install_agent.yml`
+  - `ansible/playbooks/deploy_template.yml`
+- Added robust AWX project auto-sync in bootstrap flow:
+  - if project playbook list is empty and SCM is enabled, client triggers project update and waits.
+- Rebootstrapped AWX scenario successfully:
+  - Project: `AutomationFactoryLiteProject` (id `20`)
+  - Inventory: `AutomationFactoryLiteInventory` (id `3`)
+  - Job templates `14-18` now mapped to V1 playbooks with no unresolved mapping.
+
+### Mocked
+- None in this block.
+
+### Tests Passed
+- Targeted suites after AWX client changes:
+  - `tests/backend/test_awx_mock_client.py`
+  - `tests/integration/test_end_to_end_mock.py`
+  - `tests/orchestrator/test_orchestrator_transitions.py`
+- Full python suite remains green (`pytest -q`: `21 passed`).
+
+### Remaining
+- Push updated `install_agent` playbook to remote SCM branch used by AWX so OL9 package fallback logic is active.
+- Ensure package repositories on targets include `cockpit` (or fallback `cockpit-ws`) for successful `install_agent` scenario.
+- Optional: install Docker/Compose runtime in VM to validate `make up` locally.
+
+### Risks / Blockers
+- Demo scenario `install_agent` failed in prior real AWX runs with `telegraf`/`node_exporter` due host package availability, not orchestration or credential issues.
+
+## Block 8 - OL9 Agent Strategy Update (cockpit-first)
+### Implemented
+- Changed analyzer default for `install_agent` to `cockpit` when agent is not explicitly provided.
+- Updated static playbook `ansible/playbooks/install_agent.yml`:
+  - default agent: `cockpit`
+  - package mapping:
+    - `cockpit` -> primary `cockpit`, fallback `cockpit-ws`
+    - `node_exporter` -> primary `prometheus-node-exporter`, fallback `node_exporter`
+    - `telegraf` -> primary `telegraf`
+- Updated secure blueprint template for generated `install_agent` automations to use the same package mapping strategy.
+- Updated demo assets to use `cockpit`:
+  - `scripts/demo_scenarios.sh`
+  - `docs/demo-runbook.md`
+  - integration flow text in `tests/integration/test_end_to_end_mock.py`
+
+### Mocked
+- None in this block.
+
+### Tests Passed
+- `make test` passed.
+- `make lint` passed.
+- `make test-frontend` passed.
+- `pytest -q` passed (`22 passed`).
+
+### Remaining
+- Push latest code to the AWX SCM branch (`develop`) so AWX jobs consume the new OL9 package fallback logic.
+- Re-run real AWX scenario 3 after SCM sync and confirm successful install on both hosts.
+
+### Risks / Blockers
+- Current AWX run still reflects previous remote playbook content until changes are pushed/synced.

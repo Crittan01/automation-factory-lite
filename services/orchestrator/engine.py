@@ -345,11 +345,15 @@ class AutomationOrchestrator:
             return {**state, 'rejected': True, 'rejection_reason': req.rejection_reason}
 
         awx_client = build_awx_client(self.config.settings)
+        playbook_path = automation.playbook_path
+        # Backward compatibility for older catalog entries seeded as `playbooks/...`.
+        if isinstance(playbook_path, str) and playbook_path.startswith('playbooks/'):
+            playbook_path = f'ansible/{playbook_path}'
 
         try:
             awx_client.publish_job_template(
                 name=automation.name,
-                playbook_path=automation.playbook_path,
+                playbook_path=playbook_path,
                 inventory_name=self.config.settings.awx_inventory,
             )
             launch = awx_client.launch_job(

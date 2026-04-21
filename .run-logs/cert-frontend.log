@@ -1,0 +1,1 @@
+Error: port 13000 is already in use. Set FRONTEND_PORT in .env.

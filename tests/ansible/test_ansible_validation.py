@@ -87,5 +87,13 @@ def test_ansible_lint_if_available() -> None:
 def test_yamllint_if_available() -> None:
     if not _tool_ready('yamllint'):
         pytest.skip('yamllint not fully available in environment')
-    res = subprocess.run(['yamllint', 'ansible'], cwd=ROOT, env=TEST_ENV, text=True, capture_output=True, check=False)
+    # Validate source-managed YAML only; runtime-generated artifacts are ephemeral and may include historical data.
+    res = subprocess.run(
+        ['yamllint', 'ansible/playbooks', 'ansible/templates'],
+        cwd=ROOT,
+        env=TEST_ENV,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
     assert res.returncode == 0, res.stdout + res.stderr

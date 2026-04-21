@@ -609,3 +609,39 @@
 
 ### Risks / Blockers
 - Some package/service outcomes in real hosts depend on repository availability and host state (expected for OL9/Rocky lab conditions).
+
+## Block 20 - Certification Run (Mock 100% + Real AWX Gap Identified)
+### Implemented
+- Added full-cycle certification runner:
+  - `scripts/certify_full_cycle.py`
+  - validates all requested operational cases end-to-end:
+    - user/access (`create_user`, `delete_user`, `reset_password`, `add_ssh_key`)
+    - resources (`create_directory`)
+    - services/software (`install_package`, `install_service`, `restart_service`)
+    - diagnostics/compliance (`check_uptime`, `check_patch_status`, `check_connectivity`)
+  - includes approval auto-flow for medium-risk scenarios during certification run.
+  - includes ServiceNow queue batch certification with state transition checks.
+
+### Mocked
+- Mock mode (`--mode mock`) used AWX mock client and completed full matrix successfully.
+
+### Tests Passed
+- `python3 scripts/certify_full_cycle.py --mode mock --output .run-logs/certification-mock.json`
+  - result: `11/11` scenarios passed, ServiceNow batch passed.
+- `pytest -q`
+  - result: `50 passed`.
+- `pytest tests/ansible/test_ansible_validation.py -q`
+  - result: `16 passed`.
+- `cd apps/frontend && npm test -- --run && npm run build`
+  - frontend tests/build passed.
+
+### Remaining
+- Real AWX certification currently fails for the newly added actions because AWX project SCM branch does not yet contain the new playbooks.
+- Evidence from real run:
+  - `python3 scripts/certify_full_cycle.py --mode real --output .run-logs/certification-real.json`
+  - failures show: `400 Bad Request: {"playbook":["Playbook not found for project."]}` for new playbooks.
+
+### Risks / Blockers
+- Git push to `origin/develop` failed from this environment due missing GitHub push credentials:
+  - `fatal: could not read Username for 'https://github.com': No such device or address`
+- Until repository branch used by AWX contains new playbooks and AWX project sync is re-run, real-mode certification cannot reach 100% for the new action set.

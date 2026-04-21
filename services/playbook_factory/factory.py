@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
+import json
 from pathlib import Path
 
 from services.playbook_factory.blueprints import SAFE_BLUEPRINTS
@@ -21,6 +22,11 @@ class PlaybookArtifact:
 
 def _render_content(blueprint: dict, targets_pattern: str) -> str:
     return blueprint['template'].replace('{{ targets_pattern }}', targets_pattern)
+
+
+def _yaml_scalar(value: object) -> str:
+    # JSON scalars are valid YAML scalars and safely escape user-provided strings.
+    return json.dumps(value, ensure_ascii=False)
 
 
 def _validate_supported(spec: dict) -> tuple[bool, str]:
@@ -115,7 +121,7 @@ def generate_from_blueprint(spec: dict, root_dir: str) -> PlaybookArtifact:
     playbook_path.write_text(playbook, encoding='utf-8')
 
     vars_path = out_dir / 'vars.yml'
-    vars_lines = ['---'] + [f"{k}: \"{v}\"" for k, v in params.items()]
+    vars_lines = ['---'] + [f"{k}: {_yaml_scalar(v)}" for k, v in params.items()]
     vars_path.write_text('\n'.join(vars_lines) + '\n', encoding='utf-8')
 
     readme_path = out_dir / 'README.md'

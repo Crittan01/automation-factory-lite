@@ -83,3 +83,9 @@ See:
 - `docs/architecture.md`
 - `docs/current-state.md`
 - `docs/maintainability.md`
+
+## Full Certification Command
+- Mock full-cycle certification:
+  - `python3 scripts/certify_full_cycle.py --mode mock --output .run-logs/certification-mock.json`
+- Real AWX full-cycle certification:
+  - `python3 scripts/certify_full_cycle.py --mode real --output .run-logs/certification-real.json`

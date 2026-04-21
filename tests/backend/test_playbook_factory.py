@@ -26,3 +26,19 @@ def test_reject_install_package_outside_allowlist() -> None:
     }
     with pytest.raises(ValueError, match='allow list'):
         generate_from_blueprint(spec, '/tmp')
+
+
+def test_generate_vars_escapes_double_quotes(tmp_path) -> None:
+    (tmp_path / 'ansible').mkdir(parents=True, exist_ok=True)
+    spec = {
+        'request_type': 'add_ssh_key',
+        'params': {
+            'username': 'cert_user_01',
+            'ssh_public_key': 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIdemoKey cert"@afl',
+        },
+        'targets': ['ol9server1'],
+    }
+
+    artifact = generate_from_blueprint(spec, str(tmp_path))
+    vars_content = (tmp_path / artifact.vars_path).read_text(encoding='utf-8')
+    assert '\\"' in vars_content

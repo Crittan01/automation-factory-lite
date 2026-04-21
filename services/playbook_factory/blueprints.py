@@ -103,7 +103,10 @@ SAFE_BLUEPRINTS = {
     - name: Validate destination path
       ansible.builtin.assert:
         that:
-          - directory_path.startswith('/opt/automation_factory_lite') or directory_path.startswith('/srv/automation_factory_lite') or directory_path.startswith('/var/tmp/automation_factory_lite')
+          - >
+            directory_path.startswith('/opt/automation_factory_lite')
+            or directory_path.startswith('/srv/automation_factory_lite')
+            or directory_path.startswith('/var/tmp/automation_factory_lite')
         fail_msg: "Directory path is outside approved scope"
 
     - name: Ensure directory exists

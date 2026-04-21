@@ -1,0 +1,18 @@
+
+> automation-factory-lite-ui@1.0.0 dev
+> next dev --hostname 0.0.0.0 --port 13000
+
+   ▲ Next.js 15.0.4
+   - Local:        http://localhost:13000
+   - Network:      http://0.0.0.0:13000
+
+ ✓ Starting...
+ ✓ Ready in 6.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 7.8s (604 modules)
+ GET / 200 in 8890ms
+ ○ Compiling /servicenow-connector ...
+ ✓ Compiled /servicenow-connector in 1888ms (611 modules)
+ GET /servicenow-connector 200 in 2248ms
+ GET / 200 in 320ms
+ GET /servicenow-connector 200 in 14ms

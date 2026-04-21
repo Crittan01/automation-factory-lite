@@ -87,6 +87,7 @@ Latest validated lab run (April 17, 2026):
 
 ## Data Needed to Complete Full Real Mapping
 - Git repository/branch reachable by AWX that contains the approved playbook set under `ansible/playbooks/`.
+- Push-capable Git credentials from development VM (PAT or SSH key) to publish latest playbook updates to the branch consumed by AWX SCM.
 - Confirmed machine credential id or name with SSH access to:
   - `192.168.250.30`
   - `192.168.250.40`

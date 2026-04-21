@@ -38,6 +38,7 @@ class ScenarioResult:
     passed: bool
     awx_mode: str | None
     job_id: str | None
+    rejection_reason: str | None
     message: str
 
 
@@ -116,6 +117,8 @@ def _run_single_scenario(
         f"status={req.status}, risk={req.risk_level}, "
         f"approval={req.requires_approval}, detected={detected}"
     )
+    if req.rejection_reason:
+        message = f"{message}, rejection={req.rejection_reason}"
 
     return ScenarioResult(
         name=name,
@@ -129,6 +132,7 @@ def _run_single_scenario(
         passed=all(conditions),
         awx_mode=execution.awx_mode if execution else None,
         job_id=execution.job_id if execution else None,
+        rejection_reason=req.rejection_reason,
         message=message,
     )
 

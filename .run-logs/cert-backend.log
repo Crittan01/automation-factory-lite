@@ -1,0 +1,1 @@
+Error: port 18010 is already in use. Set BACKEND_PORT in .env.

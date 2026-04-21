@@ -5,6 +5,7 @@
   gather_facts: false
   vars:
     username: "{{ username | default('operador_demo') }}"
+
   tasks:
     - name: Ensure user exists without sudo group
       ansible.builtin.user:

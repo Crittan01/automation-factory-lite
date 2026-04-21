@@ -10,6 +10,7 @@
       ansible.builtin.assert:
         that:
           - service_name in ['nginx', 'httpd']
+
     - name: Ensure service package is present
       ansible.builtin.package:
         name: "{{ service_name }}"

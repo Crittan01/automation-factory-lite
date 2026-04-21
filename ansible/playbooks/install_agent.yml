@@ -20,10 +20,12 @@
       ansible.builtin.assert:
         that:
           - agent_name in ['cockpit', 'node_exporter', 'telegraf']
+
     - name: Resolve package candidates
       ansible.builtin.set_fact:
         agent_package_primary: "{{ agent_packages[agent_name].primary }}"
         agent_package_fallback: "{{ agent_packages[agent_name].fallback }}"
+
     - name: Install allowed agent package
       block:
         - name: Install primary package candidate
@@ -35,6 +37,7 @@
           ansible.builtin.fail:
             msg: "Primary package {{ agent_package_primary }} not available and no fallback is configured."
           when: agent_package_fallback | length == 0
+
         - name: Install fallback package candidate
           ansible.builtin.package:
             name: "{{ agent_package_fallback }}"

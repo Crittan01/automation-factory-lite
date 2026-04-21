@@ -8,6 +8,7 @@
       ansible.builtin.command: uptime -p
       changed_when: false
       register: uptime_result
+
     - name: Print uptime
       ansible.builtin.debug:
         var: uptime_result.stdout

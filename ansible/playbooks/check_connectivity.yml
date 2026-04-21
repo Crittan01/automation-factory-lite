@@ -11,6 +11,7 @@
       changed_when: false
       failed_when: false
       register: connectivity_probe
+
     - name: Print connectivity probe result
       ansible.builtin.debug:
         msg: "Connectivity rc={{ connectivity_probe.rc }} target={{ connectivity_target }}"

@@ -10,6 +10,7 @@
       ansible.builtin.assert:
         that:
           - package_name in ['jq', 'curl', 'git', 'rsync', 'htop', 'cockpit']
+
     - name: Ensure package present
       ansible.builtin.package:
         name: "{{ package_name }}"

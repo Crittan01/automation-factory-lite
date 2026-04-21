@@ -1,179 +1,79 @@
 INFO:     Will watch for changes in these directories: ['/Ansible/automation-factory-lite/apps/backend']
 INFO:     Uvicorn running on http://0.0.0.0:18010 (Press CTRL+C to quit)
-INFO:     Started reloader process [80631] using WatchFiles
-INFO:     Started server process [80669]
+INFO:     Started reloader process [85803] using WatchFiles
+INFO:     Started server process [85842]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     192.168.250.1:60786 - "GET /docs HTTP/1.1" 200 OK
-INFO:     192.168.250.1:60786 - "GET /openapi.json HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53172 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53184 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53200 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53200 - "GET /api/servicenow-mcp/cases/INC000012 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53184 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53200 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53200 - "GET /api/servicenow-mcp/cases/INC000012 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53214 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53226 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42758 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42770 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42784 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42806 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42790 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42808 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42808 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42790 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42790 - "GET /api/servicenow-mcp/cases/INC000011 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42820 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42790 - "OPTIONS /api/servicenow-mcp/cases/INC000011/process HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42790 - "POST /api/servicenow-mcp/cases/INC000011/process HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42790 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56748 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56748 - "GET /api/servicenow-mcp/cases/INC000011 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56750 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56762 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56764 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56762 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56764 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57568 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56762 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56764 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56764 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56762 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:43198 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56762 - "GET /api/approvals/pending HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42530 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42532 - "OPTIONS /api/approvals/cc4e9e96-f8df-4137-9c1f-3840e378a1df/decision HTTP/1.1" 200 OK
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-INFO:     127.0.0.1:42532 - "POST /api/approvals/cc4e9e96-f8df-4137-9c1f-3840e378a1df/decision HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42532 - "GET /api/approvals/pending HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42538 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55044 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48716 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:43096 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53826 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53834 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53266 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46776 - "OPTIONS /api/approvals/8df469a7-0329-437e-9d0e-bf1054d5ce67/decision HTTP/1.1" 200 OK
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-/Ansible/agents/.venv/lib64/python3.9/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'ol9-awx.lab.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(
-INFO:     127.0.0.1:46776 - "POST /api/approvals/8df469a7-0329-437e-9d0e-bf1054d5ce67/decision HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46776 - "GET /api/approvals/pending HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50040 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47946 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47962 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47972 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47982 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57396 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57404 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57412 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45150 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45162 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33482 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33496 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47892 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51070 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58026 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:40658 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:40668 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:44058 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42720 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49168 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49176 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53656 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45578 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:36814 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60120 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60136 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:32948 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42148 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41312 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:40860 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42548 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:36294 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:36296 - "GET /api/audit HTTP/1.1" 200 OK
-INFO:     127.0.0.1:36302 - "GET /api/audit HTTP/1.1" 200 OK
-INFO:     127.0.0.1:36296 - "GET /api/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:36302 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48274 - "GET /api/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48262 - "GET /api/dashboard HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48290 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48304 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48318 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49168 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49182 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51292 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49612 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:39386 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:33880 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58698 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'app/main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [80669]
-INFO:     Started server process [84043]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     127.0.0.1:60746 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:35756 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49124 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:35456 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56866 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56876 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:43140 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55618 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:43690 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48328 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:48342 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     192.168.250.20:35598 - "GET /api/requests/8df469a7-0329-437e-9d0e-bf1054d5ce67 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47574 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47584 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47574 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47594 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47602 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47604 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47612 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54856 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54870 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47194 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41890 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:41900 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45424 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45440 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45454 - "GET /api/executions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45110 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:34982 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42614 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42616 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51176 - "GET /api/executions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51176 - "GET /api/executions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51176 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51188 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51218 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51204 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51218 - "GET /api/servicenow-mcp/cases/INC000011 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51204 - "GET /api/servicenow-mcp/cases/INC000011 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51232 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51204 - "GET /api/servicenow-mcp/cases/INC000010 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51204 - "OPTIONS /api/servicenow-mcp/cases/INC000010/process HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51204 - "POST /api/servicenow-mcp/cases/INC000010/process HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51204 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51246 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51246 - "GET /api/servicenow-mcp/cases/INC000010 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40868 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40878 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40882 - "GET /api/servicenow-mcp/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40882 - "GET /api/executions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40878 - "GET /api/executions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40882 - "GET /api/requests HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40878 - "GET /api/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40896 - "GET /api/requests HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40892 - "GET /api/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40896 - "GET /api/approvals/pending HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40892 - "GET /api/approvals/pending HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43232 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40892 - "GET /api/approvals/pending HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43240 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43242 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43258 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43260 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53784 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58670 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39066 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56106 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56112 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43152 - "GET /api/approvals/pending HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43158 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43248 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42188 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49714 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49726 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49454 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53356 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37596 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50076 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55522 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54760 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52592 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38822 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54252 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.20:32932 - "GET /api/approvals/pending HTTP/1.1" 200 OK
+INFO:     192.168.250.20:38410 - "GET /api/requests?ticket_id=INC000010 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35684 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.20:42482 - "GET /api/cmdb/hosts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56732 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33738 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47162 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44338 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59082 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55102 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60606 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44526 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53386 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59496 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50412 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58242 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.20:56024 - "POST /api/seeds/cmdb HTTP/1.1" 200 OK
+INFO:     192.168.250.20:56038 - "GET /api/cmdb/hosts HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/servicenow/mcp/status HTTP/1.1" 200 OK

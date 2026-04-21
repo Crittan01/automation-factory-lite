@@ -7,22 +7,13 @@
    - Network:      http://0.0.0.0:13000
 
  ✓ Starting...
- ✓ Ready in 2.9s
+ ✓ Ready in 1616ms
  ○ Compiling /servicenow-connector ...
- ✓ Compiled /servicenow-connector in 1767ms (550 modules)
- GET /servicenow-connector 200 in 1975ms
- GET /servicenow-connector 200 in 28ms
+ ✓ Compiled /servicenow-connector in 1606ms (550 modules)
+ GET /servicenow-connector 200 in 1742ms
  ○ Compiling /approvals ...
- ✓ Compiled /approvals in 710ms (612 modules)
- GET /approvals 200 in 805ms
- ○ Compiling /execution ...
- ✓ Compiled /execution in 531ms (619 modules)
- GET /execution 200 in 609ms
- ○ Compiling /audit ...
- ✓ Compiled /audit in 546ms (626 modules)
- GET /audit 200 in 619ms
- ✓ Compiled / in 280ms (635 modules)
- GET / 200 in 338ms
- GET /execution 200 in 12ms
- ✓ Compiled in 1227ms (649 modules)
- GET /execution 200 in 48ms
+ ✓ Compiled /approvals in 1201ms (626 modules)
+ GET /approvals 200 in 1279ms
+ GET /approvals 200 in 67ms
+ GET /approvals 200 in 16ms
+ GET /approvals 200 in 29ms

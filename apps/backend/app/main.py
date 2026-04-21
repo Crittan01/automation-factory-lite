@@ -46,6 +46,7 @@ from services.servicenow_sim.agent import run_pending_cases
 from services.servicenow_sim.external_agent import run_pending_cases_via_external
 from services.servicenow_sim.external_client import ExternalServiceNowClient
 from services.servicenow_sim.service import (
+    add_case_event,
     create_case as create_servicenow_case,
     get_case_by_number,
     list_case_events,
@@ -144,6 +145,117 @@ def _build_external_servicenow_client(*, check_health: bool = False) -> External
                 ),
             ) from exc
     return client
+
+
+def _sync_servicenow_case_after_approval(
+    db: Session,
+    *,
+    request: AutomationRequest,
+    decision: str,
+    approver: str,
+    comment: str | None,
+) -> None:
+    ticket_id = str(request.ticket_id or '').strip()
+    if ticket_id == '' or not ticket_id.upper().startswith('INC'):
+        return
+
+    if decision == 'approve':
+        if request.status in {'executed', 'validated'}:
+            next_state = 'resolved'
+            resolution_notes = (
+                f'Aprobado por {approver}. '
+                f'Automatización ejecutada ({request.status}). '
+                f'execution_id={request.execution_id or "-"}'
+            )
+            event_type = 'approval_approved_execution_finished'
+        elif request.status in {'failed', 'rejected'}:
+            next_state = 'needs_manual_attention'
+            resolution_notes = (
+                f'Aprobado por {approver}, pero la ejecución terminó en {request.status}. '
+                f'Revisar rechazo/error: {request.rejection_reason or request.risk_reason or "sin detalle"}'
+            )
+            event_type = 'approval_approved_execution_failed'
+        else:
+            next_state = 'in_progress'
+            resolution_notes = (
+                f'Aprobado por {approver}. '
+                f'Estado actual de la solicitud={request.status}.'
+            )
+            event_type = 'approval_approved_in_progress'
+    else:
+        next_state = 'needs_manual_attention'
+        resolution_notes = (
+            f'Rechazado por {approver}. '
+            f'Motivo: {comment or "sin comentario"}'
+        )
+        event_type = 'approval_rejected_manual_attention'
+
+    local_case = get_case_by_number(db, ticket_id)
+    if local_case is not None:
+        local_case.state = next_state
+        local_case.resolution_notes = resolution_notes
+        local_case.automation_request_id = request.id
+        local_case.execution_id = request.execution_id
+        local_case.last_agent_run_at = datetime.utcnow()
+        db.add(local_case)
+        add_case_event(
+            db,
+            case=local_case,
+            actor='approval_engine',
+            event_type=event_type,
+            message='Estado del caso sincronizado después de decisión de aprobación.',
+            payload={
+                'decision': decision,
+                'approver': approver,
+                'request_status': request.status,
+                'execution_id': request.execution_id,
+            },
+        )
+
+    if settings.servicenow_mcp_enabled and settings.servicenow_external_enabled:
+        try:
+            external = _build_external_servicenow_client(check_health=False)
+            external.update_case(
+                ticket_id,
+                {
+                    'state': next_state,
+                    'resolution_notes': resolution_notes,
+                    'automation_request_id': request.id,
+                    'execution_id': request.execution_id,
+                    'append_event': {
+                        'actor': 'approval_engine',
+                        'event_type': event_type,
+                        'message': 'Case synchronized from AFL approval decision.',
+                        'payload': {
+                            'decision': decision,
+                            'approver': approver,
+                            'request_status': request.status,
+                            'execution_id': request.execution_id,
+                        },
+                    },
+                },
+            )
+            db.add(
+                AuditLog(
+                    request_id=request.id,
+                    ticket_id=ticket_id,
+                    event_type='servicenow_case_synced_after_approval',
+                    message='External ServiceNow case synchronized after approval decision.',
+                    payload={'state': next_state, 'decision': decision},
+                )
+            )
+        except Exception as exc:
+            db.add(
+                AuditLog(
+                    request_id=request.id,
+                    ticket_id=ticket_id,
+                    event_type='servicenow_case_sync_failed_after_approval',
+                    message='Failed to synchronize ServiceNow case after approval decision.',
+                    payload={'decision': decision, 'error': str(exc)},
+                )
+            )
+
+    db.commit()
 
 
 @app.get('/health')
@@ -570,6 +682,13 @@ def decide_approval(request_id: str, payload: ApprovalInput, db: Session = Depen
                 )
             )
             db.commit()
+        _sync_servicenow_case_after_approval(
+            db,
+            request=request,
+            decision='approve',
+            approver=payload.approver,
+            comment=payload.comment,
+        )
     else:
         request.approved = False
         request.status = 'rejected'
@@ -604,6 +723,13 @@ def decide_approval(request_id: str, payload: ApprovalInput, db: Session = Depen
                 )
             )
             db.commit()
+        _sync_servicenow_case_after_approval(
+            db,
+            request=request,
+            decision='reject',
+            approver=payload.approver,
+            comment=payload.comment,
+        )
 
     return ApprovalResponse(
         request_id=request_id,

@@ -5,9 +5,9 @@
   gather_facts: false
   vars:
     directory_path: "{{ directory_path | default('/opt/automation_factory_lite/work') }}"
-    dir_owner: "{{ dir_owner | default('root') }}"
-    dir_group: "{{ dir_group | default('root') }}"
-    dir_mode: "{{ dir_mode | default('0755') }}"
+    requested_dir_owner: "{{ dir_owner | default('root') }}"
+    requested_dir_group: "{{ dir_group | default('root') }}"
+    requested_dir_mode: "{{ dir_mode | default('0755') }}"
   tasks:
     - name: Validate directory path
       ansible.builtin.assert:
@@ -16,10 +16,11 @@
             directory_path.startswith('/opt/automation_factory_lite')
             or directory_path.startswith('/srv/automation_factory_lite')
             or directory_path.startswith('/var/tmp/automation_factory_lite')
+
     - name: Ensure directory exists
       ansible.builtin.file:
         path: "{{ directory_path }}"
         state: directory
-        owner: "{{ dir_owner }}"
-        group: "{{ dir_group }}"
-        mode: "{{ dir_mode }}"
+        owner: "{{ requested_dir_owner }}"
+        group: "{{ requested_dir_group }}"
+        mode: "{{ requested_dir_mode }}"

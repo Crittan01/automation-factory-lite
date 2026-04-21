@@ -6,9 +6,9 @@
   vars:
     template_name: "{{ template_name | default('service.conf.j2') }}"
     destination_path: "{{ destination_path | default('/etc/nginx/conf.d/service.conf') }}"
-    file_owner: "{{ file_owner | default('root') }}"
-    file_group: "{{ file_group | default('root') }}"
-    file_mode: "{{ file_mode | default('0644') }}"
+    requested_file_owner: "{{ file_owner | default('root') }}"
+    requested_file_group: "{{ file_group | default('root') }}"
+    requested_file_mode: "{{ file_mode | default('0644') }}"
   tasks:
     - name: Validate destination path
       ansible.builtin.assert:
@@ -17,10 +17,11 @@
             destination_path.startswith('/etc/nginx/conf.d')
             or destination_path.startswith('/etc/httpd/conf.d')
             or destination_path.startswith('/opt/agents/config')
+
     - name: Deploy template
       ansible.builtin.template:
         src: "{{ template_name }}"
         dest: "{{ destination_path }}"
-        owner: "{{ file_owner }}"
-        group: "{{ file_group }}"
-        mode: "{{ file_mode }}"
+        owner: "{{ requested_file_owner }}"
+        group: "{{ requested_file_group }}"
+        mode: "{{ requested_file_mode }}"

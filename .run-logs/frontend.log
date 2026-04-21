@@ -7,9 +7,4 @@
    - Network:      http://0.0.0.0:13000
 
  ✓ Starting...
- ✓ Ready in 1631ms
- ○ Compiling / ...
- ✓ Compiled / in 1297ms (607 modules)
- GET / 200 in 1483ms
- ✓ Compiled /execution in 428ms (614 modules)
- GET /execution 200 in 484ms
+ ✓ Ready in 1569ms

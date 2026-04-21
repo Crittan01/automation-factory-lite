@@ -156,3 +156,45 @@ export type ServiceNowMcpStatus = {
   queue_open_cases: number;
   checked_at: string;
 };
+
+export type AgenticStack = {
+  checked_at: string;
+  technologies: {
+    llm: {
+      enabled: boolean;
+      vendor: string;
+      model: string;
+    };
+    rag: {
+      enabled: boolean;
+      documents_indexed: number;
+      retrieval_mode: string;
+      vector_store: string;
+    };
+    mcp: {
+      enabled: boolean;
+      mode?: string;
+      bridge_status?: string;
+      external_service_reachable?: boolean;
+    };
+    awx: {
+      mode: string;
+      real_enabled: boolean;
+      url?: string | null;
+    };
+    langgraph: {
+      enabled_by_config: boolean;
+      installed: boolean;
+      active: boolean;
+    };
+  };
+  agents: string[];
+  rag_query?: string | null;
+  rag_hits: AgenticRagHit[];
+};
+
+export type AgenticRagHit = {
+  path: string;
+  score: number;
+  snippet: string;
+};

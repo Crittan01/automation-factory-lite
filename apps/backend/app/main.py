@@ -45,6 +45,7 @@ from services.orchestrator.engine import AutomationOrchestrator, OrchestratorCon
 from services.servicenow_sim.agent import run_pending_cases
 from services.servicenow_sim.external_agent import run_pending_cases_via_external
 from services.servicenow_sim.external_client import ExternalServiceNowClient
+from services.rag_lite.service import knowledge_stats, query_knowledge
 from services.servicenow_sim.service import (
     add_case_event,
     create_case as create_servicenow_case,
@@ -411,6 +412,69 @@ def servicenow_mcp_status(db: Session = Depends(get_db)) -> dict:
         'external_service_error': external_error,
         'queue_open_cases': open_cases,
         'checked_at': datetime.utcnow().isoformat(),
+    }
+
+
+@app.get('/api/agentic/stack')
+def agentic_stack(
+    query: str | None = Query(default=None, min_length=3),
+    limit: int = Query(default=3, ge=1, le=10),
+    db: Session = Depends(get_db),
+) -> dict:
+    mcp_status = servicenow_mcp_status(db)
+    rag_status = knowledge_stats(str(ROOT_DIR))
+    rag_hits = []
+    if query:
+        rag_hits = [
+            {
+                'path': item.path,
+                'score': item.score,
+                'snippet': item.snippet,
+            }
+            for item in query_knowledge(str(ROOT_DIR), query=query, limit=limit)
+        ]
+
+    llm_enabled = bool(settings.openai_api_key)
+    langgraph_installed = importlib.util.find_spec('langgraph') is not None
+    awx_real_enabled = bool(settings.awx_mode == 'real' and settings.awx_url)
+
+    return {
+        'checked_at': datetime.utcnow().isoformat(),
+        'technologies': {
+            'llm': {
+                'enabled': llm_enabled,
+                'vendor': 'OpenAI',
+                'model': settings.openai_model,
+            },
+            'rag': {
+                'enabled': True,
+                **rag_status,
+            },
+            'mcp': {
+                'enabled': mcp_status.get('enabled', False),
+                'mode': mcp_status.get('mode'),
+                'bridge_status': mcp_status.get('bridge_status'),
+                'external_service_reachable': mcp_status.get('external_service_reachable'),
+            },
+            'awx': {
+                'mode': settings.awx_mode,
+                'real_enabled': awx_real_enabled,
+                'url': settings.awx_url,
+            },
+            'langgraph': {
+                'enabled_by_config': bool(settings.enable_langgraph),
+                'installed': langgraph_installed,
+                'active': bool(settings.enable_langgraph and langgraph_installed),
+            },
+        },
+        'agents': [
+            'Analista',
+            'Constructor',
+            'Revisor/Publicador',
+            'ServiceNow Queue Agent',
+        ],
+        'rag_query': query,
+        'rag_hits': rag_hits,
     }
 
 

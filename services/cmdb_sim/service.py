@@ -63,7 +63,15 @@ def seed_cmdb_hosts(db: Session, target_host_1: str, target_host_1_name: str, ta
     ]
 
     for item in defaults:
-        if item['hostname'] in existing:
+        host = existing.get(item['hostname'])
+        if host is not None:
+            # Keep custom host metadata, but ensure demo hosts always expose the
+            # full supported action set so MVP end-to-end cases remain executable.
+            current_actions = list(host.allowed_actions or [])
+            merged_actions = sorted(set(current_actions) | set(ALLOWED_ACTIONS))
+            if merged_actions != sorted(current_actions):
+                host.allowed_actions = merged_actions
+                db.add(host)
             continue
         db.add(CMDBHost(**item))
 

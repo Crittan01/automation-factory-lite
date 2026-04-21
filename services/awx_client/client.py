@@ -432,9 +432,21 @@ class RealAWXClient(BaseAWXClient):
 
     def publish_job_template(self, name: str, playbook_path: str, inventory_name: str) -> dict:
         project_id, inventory_id = self._resolve_project_inventory_ids()
+
+        selected_playbook = playbook_path
+        available_playbooks = self._list_project_playbooks(project_id)
+        if selected_playbook not in available_playbooks and self.project_scm_type != 'manual':
+            try:
+                self._sync_project(project_id)
+                available_playbooks = self._list_project_playbooks(project_id)
+            except Exception:
+                pass
+        if selected_playbook not in available_playbooks and available_playbooks:
+            selected_playbook = available_playbooks[0]
+
         template = self._ensure_job_template(
             name=name,
-            playbook_path=playbook_path,
+            playbook_path=selected_playbook,
             project_id=project_id,
             inventory_id=inventory_id,
         )

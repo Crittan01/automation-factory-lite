@@ -216,13 +216,13 @@ export default function ServiceNowPage() {
       <section className="relative overflow-hidden rounded-3xl border border-sky-100 bg-white/90 p-6 shadow-sm">
         <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-sky-200/40 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-20 -left-16 h-52 w-52 rounded-full bg-emerald-200/40 blur-3xl" />
-        <h2 className="text-2xl font-black text-slate-900">ServiceNow Queue (Technical / Local)</h2>
+        <h2 className="text-2xl font-black text-slate-900">Cola ServiceNow (técnico/local)</h2>
         <p className="mt-2 max-w-3xl text-sm text-slate-600">
           Vista técnica local para diagnóstico. Para operación realista, usa el portal ServiceNow separado y
-          el módulo ServiceNow Connector en Automation Factory Lite.
+          el módulo Conector ServiceNow en la interfaz principal.
         </p>
         <Link href="/servicenow-connector" className="mt-2 inline-block text-xs font-semibold text-sky-700 underline">
-          Abrir ServiceNow Connector (AFL)
+          Abrir Conector ServiceNow
         </Link>
 
         <div className="mt-4 flex flex-wrap gap-2">
@@ -250,9 +250,8 @@ export default function ServiceNowPage() {
 
         {runResult ? (
           <div className="mt-3 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs text-emerald-800">
-            Run: scanned={runResult.scanned}, processed={runResult.processed}, resolved={runResult.resolved},
-            awaiting_approval={runResult.awaiting_approval}, manual_attention={runResult.manual_attention},
-            errors={runResult.errors}
+            Ejecución: escaneados={runResult.scanned}, procesados={runResult.processed}, resueltos={runResult.resolved},
+            en_aprobación={runResult.awaiting_approval}, manual={runResult.manual_attention}, errores={runResult.errors}
           </div>
         ) : null}
         {error ? <p className="mt-3 text-sm text-rose-700">{error}</p> : null}
@@ -333,7 +332,7 @@ export default function ServiceNowPage() {
                   <td className="py-2">
                     <span className={`badge ${stateBadge(item.state)}`}>{item.state}</span>
                   </td>
-                  <td className="py-2">{item.request_type ?? 'nl_request'}</td>
+                  <td className="py-2">{item.request_type ?? 'solicitud_nl'}</td>
                   <td className="py-2">{item.priority}</td>
                 </tr>
               ))}
@@ -350,7 +349,7 @@ export default function ServiceNowPage() {
                 <p className="text-sm font-semibold">{selected.short_description}</p>
                 <p className="mt-1 text-xs text-slate-600">Estado: {selected.state}</p>
                 <p className="mt-1 text-xs text-slate-600">Request ID: {selected.automation_request_id ?? '-'}</p>
-                <p className="mt-1 text-xs text-slate-600">Execution ID: {selected.execution_id ?? '-'}</p>
+                <p className="mt-1 text-xs text-slate-600">ID de ejecución: {selected.execution_id ?? '-'}</p>
                 <p className="mt-2 text-xs text-slate-600">{selected.resolution_notes ?? 'Sin notas de resolución.'}</p>
               </div>
 

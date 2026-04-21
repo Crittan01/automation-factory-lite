@@ -16,7 +16,7 @@ export default function ApprovalsPage() {
   };
 
   const decide = async (requestId: string, decision: 'approve' | 'reject') => {
-    const comment = decision === 'approve' ? 'Approved from UI' : 'Rejected from UI';
+    const comment = decision === 'approve' ? 'Aprobado desde la interfaz' : 'Rechazado desde la interfaz';
     try {
       await apiPost(`/api/approvals/${requestId}/decision`, {
         approver: 'ui.manager',

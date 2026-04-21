@@ -3,12 +3,13 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { apiGet, apiPost } from '@/lib/api';
+import { APP_NAME } from '@/lib/branding';
 import type { ServiceNowAgentRun, ServiceNowCase, ServiceNowMcpStatus } from '@/lib/types';
 
 const TABS = [
-  { id: 'queue', label: 'Queue' },
-  { id: 'catalog', label: 'Catalog Backlog' },
-  { id: 'trace', label: 'Traceability' },
+  { id: 'queue', label: 'Cola' },
+  { id: 'catalog', label: 'Backlog de Catálogo' },
+  { id: 'trace', label: 'Trazabilidad' },
 ] as const;
 
 const STATE_COLORS: Record<string, string> = {
@@ -47,7 +48,7 @@ export default function ServiceNowConnectorPage() {
     }
   };
 
-  const runAgent = async () => {
+  const runAgentBatch = async () => {
     setLoading(true);
     setError('');
     try {
@@ -58,6 +59,29 @@ export default function ServiceNowConnectorPage() {
         const detail = await apiGet<ServiceNowCase>(`/api/servicenow-mcp/cases/${selectedCase.number}`);
         setSelectedCase(detail);
       }
+    } catch (err) {
+      setError(String(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const runSelectedCase = async () => {
+    if (!selectedCase?.number) {
+      setError('Selecciona un caso antes de ejecutar en modo individual.');
+      return;
+    }
+    setLoading(true);
+    setError('');
+    try {
+      const result = await apiPost<ServiceNowAgentRun>(
+        `/api/servicenow-mcp/cases/${selectedCase.number}/process`,
+        {},
+      );
+      setRunResult(result);
+      await loadAll();
+      const detail = await apiGet<ServiceNowCase>(`/api/servicenow-mcp/cases/${selectedCase.number}`);
+      setSelectedCase(detail);
     } catch (err) {
       setError(String(err));
     } finally {
@@ -116,7 +140,7 @@ export default function ServiceNowConnectorPage() {
     const groups: Record<string, number> = {};
     for (const item of cases) {
       if (!openStates.has(item.state)) continue;
-      const key = item.request_type || 'untyped';
+      const key = item.request_type || 'sin_tipo';
       groups[key] = (groups[key] || 0) + 1;
     }
     return Object.entries(groups).sort((a, b) => b[1] - a[1]);
@@ -127,16 +151,16 @@ export default function ServiceNowConnectorPage() {
       <header className="border-b border-[#1f2a44] bg-[#1f2a44] px-6 py-4 text-white">
         <div className="mx-auto flex max-w-[1500px] items-center justify-between">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-slate-300">Automation Factory Lite</p>
-            <h1 className="text-2xl font-bold">ServiceNow Connector</h1>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-slate-300">{APP_NAME}</p>
+            <h1 className="text-2xl font-bold">Conector ServiceNow</h1>
           </div>
           <div className="text-right text-xs">
-            <p>MCP mode: {status?.mode ?? 'loading...'}</p>
+            <p>Modo MCP: {status?.mode ?? 'cargando...'}</p>
             <p className={status?.bridge_status === 'connected' ? 'text-emerald-300' : 'text-amber-300'}>
-              Bridge: {status?.bridge_status ?? '-'}
+              Puente: {status?.bridge_status ?? '-'}
             </p>
             <p className={status?.external_service_reachable ? 'text-emerald-300' : 'text-rose-300'}>
-              Service: {status?.external_service_reachable ? 'reachable' : 'unreachable'}
+              Servicio: {status?.external_service_reachable ? 'disponible' : 'no disponible'}
             </p>
           </div>
         </div>
@@ -144,7 +168,7 @@ export default function ServiceNowConnectorPage() {
 
       <main className="mx-auto grid max-w-[1500px] gap-4 px-4 py-6 md:grid-cols-[260px_1fr]">
         <aside className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Navigation</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Navegación</p>
           <nav className="mt-3 grid gap-2">
             {TABS.map((item) => (
               <button
@@ -160,11 +184,11 @@ export default function ServiceNowConnectorPage() {
           </nav>
 
           <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs">
-            <p className="font-semibold text-slate-700">MCP Connection</p>
-            <p className="mt-1 text-slate-600">Package: {status?.mcp_package_installed ? 'installed' : 'missing'}</p>
+            <p className="font-semibold text-slate-700">Conexión MCP</p>
+            <p className="mt-1 text-slate-600">Paquete: {status?.mcp_package_installed ? 'instalado' : 'faltante'}</p>
             <p className="text-slate-600">Cmd: {status?.server_cmd ?? '-'}</p>
-            <p className="text-slate-600">Service URL: {status?.external_service_url ?? '-'}</p>
-            <p className="text-slate-600">Open cases: {status?.queue_open_cases ?? 0}</p>
+            <p className="text-slate-600">URL del servicio: {status?.external_service_url ?? '-'}</p>
+            <p className="text-slate-600">Casos abiertos: {status?.queue_open_cases ?? 0}</p>
             {status?.external_service_url ? (
               <a
                 href={status.external_service_url}
@@ -172,7 +196,7 @@ export default function ServiceNowConnectorPage() {
                 rel="noreferrer"
                 className="mt-2 inline-block font-semibold text-sky-700 underline"
               >
-                Open ServiceNow Portal
+                Abrir portal ServiceNow
               </a>
             ) : null}
           </div>
@@ -183,17 +207,25 @@ export default function ServiceNowConnectorPage() {
               disabled={loading}
               className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white disabled:opacity-60"
             >
-              Sync Demo Queue (No Duplicates)
+              Sincronizar cola demo (sin duplicados)
             </button>
             <button
-              onClick={runAgent}
+              onClick={runAgentBatch}
               disabled={loading}
               className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white disabled:opacity-60"
             >
-              Run AFL MCP Worker
+              Procesar lote (20 casos)
+            </button>
+            <button
+              onClick={runSelectedCase}
+              disabled={loading || !selectedCase}
+              className="rounded-lg bg-amber-600 px-3 py-2 text-sm font-semibold text-white disabled:opacity-60"
+            >
+              Procesar caso seleccionado
             </button>
             <p className="text-[11px] text-slate-500">
-              `Run AFL MCP Worker` ejecuta backend real (`POST /api/servicenow-mcp/agent/run`), no es solo visual.
+              Los botones ejecutan backend real: lote (`POST /api/servicenow-mcp/agent/run`) o individual
+              (`POST /api/servicenow-mcp/cases/{'{number}'}/process`).
             </p>
           </div>
         </aside>
@@ -205,19 +237,19 @@ export default function ServiceNowConnectorPage() {
               <p className="mt-1 text-3xl font-bold">{kpis.total}</p>
             </article>
             <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <p className="text-xs uppercase text-slate-500">Open</p>
+              <p className="text-xs uppercase text-slate-500">Abiertos</p>
               <p className="mt-1 text-3xl font-bold text-indigo-700">{kpis.open}</p>
             </article>
             <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <p className="text-xs uppercase text-slate-500">Resolved</p>
+              <p className="text-xs uppercase text-slate-500">Resueltos</p>
               <p className="mt-1 text-3xl font-bold text-emerald-700">{kpis.resolved}</p>
             </article>
             <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <p className="text-xs uppercase text-slate-500">Awaiting Approval</p>
+              <p className="text-xs uppercase text-slate-500">En aprobación</p>
               <p className="mt-1 text-3xl font-bold text-amber-700">{kpis.approval}</p>
             </article>
             <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <p className="text-xs uppercase text-slate-500">Manual Attention</p>
+              <p className="text-xs uppercase text-slate-500">Atención manual</p>
               <p className="mt-1 text-3xl font-bold text-rose-700">{kpis.manual}</p>
             </article>
           </div>
@@ -225,19 +257,19 @@ export default function ServiceNowConnectorPage() {
           {runResult ? (
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800">
               {runResult.processed === 0
-                ? `Queue sync result: created=${runResult.scanned}.`
-                : `Connector run: scanned=${runResult.scanned}, processed=${runResult.processed}, resolved=${runResult.resolved}, awaiting_approval=${runResult.awaiting_approval}, manual_attention=${runResult.manual_attention}`}
+                ? `Resultado de sincronización: creados=${runResult.scanned}.`
+                : `Ejecución del conector: escaneados=${runResult.scanned}, procesados=${runResult.processed}, resueltos=${runResult.resolved}, en_aprobación=${runResult.awaiting_approval}, manual=${runResult.manual_attention}`}
             </div>
           ) : null}
           {error ? <p className="text-sm text-rose-700">{error}</p> : null}
 
           {tab === 'catalog' ? (
             <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-              <h2 className="text-lg font-bold">Catalog Backlog</h2>
-              <p className="mt-1 text-xs text-slate-500">Pending cases grouped by automation catalog type.</p>
+              <h2 className="text-lg font-bold">Backlog de catálogo</h2>
+              <p className="mt-1 text-xs text-slate-500">Casos pendientes agrupados por tipo de automatización.</p>
               <div className="mt-3 grid gap-3 md:grid-cols-3 lg:grid-cols-5">
                 {backlog.length === 0 ? (
-                  <p className="text-sm text-slate-500">No open backlog.</p>
+                  <p className="text-sm text-slate-500">No hay backlog abierto.</p>
                 ) : (
                   backlog.map(([key, count]) => (
                     <article key={key} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
@@ -253,14 +285,14 @@ export default function ServiceNowConnectorPage() {
           {tab === 'queue' || tab === 'trace' ? (
             <div className="grid gap-4 md:grid-cols-2">
               <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <h2 className="text-lg font-bold">Incident Queue</h2>
+                <h2 className="text-lg font-bold">Cola de casos</h2>
                 <div className="mt-3 max-h-[520px] overflow-y-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="text-left text-slate-500">
-                        <th className="py-2">Case</th>
-                        <th className="py-2">State</th>
-                        <th className="py-2">Type</th>
+                        <th className="py-2">Caso</th>
+                        <th className="py-2">Estado</th>
+                        <th className="py-2">Tipo</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -276,7 +308,7 @@ export default function ServiceNowConnectorPage() {
                               {prettyState(item.state)}
                             </span>
                           </td>
-                          <td className="py-2">{item.request_type ?? 'nl_request'}</td>
+                          <td className="py-2">{item.request_type ?? 'solicitud_nl'}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -285,16 +317,16 @@ export default function ServiceNowConnectorPage() {
               </article>
 
               <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <h2 className="text-lg font-bold">Case Detail & Traceability</h2>
+                <h2 className="text-lg font-bold">Detalle y trazabilidad</h2>
                 {selectedCase ? (
                   <>
                     <div className="mt-2 rounded-lg border border-slate-200 bg-slate-50 p-3">
                       <p className="text-xs text-slate-500">{selectedCase.number}</p>
                       <p className="text-sm font-semibold">{selectedCase.short_description}</p>
-                      <p className="mt-1 text-xs text-slate-600">State: {prettyState(selectedCase.state)}</p>
-                      <p className="mt-1 text-xs text-slate-600">Automation request: {selectedCase.automation_request_id ?? '-'}</p>
-                      <p className="mt-1 text-xs text-slate-600">Execution: {selectedCase.execution_id ?? '-'}</p>
-                      <p className="mt-2 text-xs text-slate-600">{selectedCase.resolution_notes ?? 'No resolution notes yet.'}</p>
+                      <p className="mt-1 text-xs text-slate-600">Estado: {prettyState(selectedCase.state)}</p>
+                      <p className="mt-1 text-xs text-slate-600">Solicitud de automatización: {selectedCase.automation_request_id ?? '-'}</p>
+                      <p className="mt-1 text-xs text-slate-600">Ejecución: {selectedCase.execution_id ?? '-'}</p>
+                      <p className="mt-2 text-xs text-slate-600">{selectedCase.resolution_notes ?? 'Sin notas de resolución aún.'}</p>
                     </div>
 
                     <div className="mt-3 max-h-[360px] space-y-2 overflow-y-auto">
@@ -310,7 +342,7 @@ export default function ServiceNowConnectorPage() {
                     </div>
                   </>
                 ) : (
-                  <p className="mt-2 text-sm text-slate-500">Select a case from queue.</p>
+                  <p className="mt-2 text-sm text-slate-500">Selecciona un caso de la cola.</p>
                 )}
               </article>
             </div>

@@ -46,7 +46,7 @@ export default function IntakePage() {
   return (
     <AppShell>
       <section className="card p-5">
-        <h2 className="text-xl font-bold">Intake de Solicitud</h2>
+        <h2 className="text-xl font-bold">Recepción de solicitud</h2>
         <p className="mt-2 text-sm text-slate-600">
           Ingresa solicitud en lenguaje natural. El Analista la convertirá en JSON estructurado y ejecutará el flujo
           multiagente.

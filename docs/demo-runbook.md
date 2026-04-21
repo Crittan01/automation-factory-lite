@@ -38,8 +38,7 @@ Recommended start sequence (conflict-safe):
    - filter by ticket (`AFL-DEMO-001`, etc.) and confirm event trail/evidence payloads.
 10. Open standalone ServiceNow portal (`http://localhost:18095/`):
    - click `Create Demo Cases` (idempotent; avoids duplicates)
-   - click `Dispatch Eligible Cases`
-11. Open AFL ServiceNow connector (`/servicenow-connector`) and validate same queue/traceability from AFL side.
+11. Open AFL ServiceNow connector (`/servicenow-connector`) and run `Run AFL MCP Worker` to process queue.
 12. Verify queue transitions:
    - supported cases -> `resolved`
    - medium risk -> `awaiting_approval`

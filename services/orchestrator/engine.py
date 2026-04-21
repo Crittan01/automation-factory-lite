@@ -49,6 +49,33 @@ class OrchestratorState(TypedDict, total=False):
     rejection_reason: Any
 
 
+AWX_CANONICAL_AUTOMATIONS: dict[str, dict[str, str]] = {
+    'create_user': {'template_name': 'AFL - Create User', 'playbook_path': 'ansible/playbooks/create_user.yml'},
+    'delete_user': {'template_name': 'AFL - Delete User', 'playbook_path': 'ansible/playbooks/delete_user.yml'},
+    'reset_password': {'template_name': 'AFL - Reset Password', 'playbook_path': 'ansible/playbooks/reset_password.yml'},
+    'add_ssh_key': {'template_name': 'AFL - Add SSH Key', 'playbook_path': 'ansible/playbooks/add_ssh_key.yml'},
+    'create_directory': {
+        'template_name': 'AFL - Create Directory',
+        'playbook_path': 'ansible/playbooks/create_directory.yml',
+    },
+    'install_service': {'template_name': 'AFL - Install Service', 'playbook_path': 'ansible/playbooks/install_service.yml'},
+    'install_package': {'template_name': 'AFL - Install Package', 'playbook_path': 'ansible/playbooks/install_package.yml'},
+    'restart_service': {'template_name': 'AFL - Restart Service', 'playbook_path': 'ansible/playbooks/restart_service.yml'},
+    'manage_service': {'template_name': 'AFL - Manage Service', 'playbook_path': 'ansible/playbooks/manage_service.yml'},
+    'install_agent': {'template_name': 'AFL - Install Agent', 'playbook_path': 'ansible/playbooks/install_agent.yml'},
+    'deploy_template': {'template_name': 'AFL - Deploy Template', 'playbook_path': 'ansible/playbooks/deploy_template.yml'},
+    'check_uptime': {'template_name': 'AFL - Check Uptime', 'playbook_path': 'ansible/playbooks/check_uptime.yml'},
+    'check_patch_status': {
+        'template_name': 'AFL - Check Patch Status',
+        'playbook_path': 'ansible/playbooks/check_patch_status.yml',
+    },
+    'check_connectivity': {
+        'template_name': 'AFL - Check Connectivity',
+        'playbook_path': 'ansible/playbooks/check_connectivity.yml',
+    },
+}
+
+
 @dataclass
 class OrchestratorConfig:
     root_dir: str
@@ -413,35 +440,22 @@ class AutomationOrchestrator:
         playbook_path = automation.playbook_path
         spec = state.get('spec') or {}
         request_type = spec.get('request_type')
-        canonical_playbooks = {
-            'create_user': 'ansible/playbooks/create_user.yml',
-            'delete_user': 'ansible/playbooks/delete_user.yml',
-            'reset_password': 'ansible/playbooks/reset_password.yml',
-            'add_ssh_key': 'ansible/playbooks/add_ssh_key.yml',
-            'create_directory': 'ansible/playbooks/create_directory.yml',
-            'install_service': 'ansible/playbooks/install_service.yml',
-            'install_package': 'ansible/playbooks/install_package.yml',
-            'restart_service': 'ansible/playbooks/restart_service.yml',
-            'manage_service': 'ansible/playbooks/manage_service.yml',
-            'install_agent': 'ansible/playbooks/install_agent.yml',
-            'deploy_template': 'ansible/playbooks/deploy_template.yml',
-            'check_uptime': 'ansible/playbooks/check_uptime.yml',
-            'check_patch_status': 'ansible/playbooks/check_patch_status.yml',
-            'check_connectivity': 'ansible/playbooks/check_connectivity.yml',
-        }
+        awx_template_name = automation.name
+
         # Backward compatibility for older catalog entries seeded as `playbooks/...`.
         if isinstance(playbook_path, str) and playbook_path.startswith('playbooks/'):
             playbook_path = f'ansible/{playbook_path}'
-        # In AWX real mode, generated runtime paths (`generated/...`) are not visible in SCM project.
-        # Use canonical safe playbooks for supported request types.
-        if isinstance(playbook_path, str):
-            normalized = playbook_path.lstrip('./')
-            if normalized.startswith('generated/') or normalized.startswith('ansible/generated/'):
-                playbook_path = canonical_playbooks.get(request_type, playbook_path)
+
+        # Keep rich generated names for audit/catalog, but use canonical AWX template names
+        # to avoid creating one Job Template per timestamped automation artifact.
+        canonical_awx = AWX_CANONICAL_AUTOMATIONS.get(str(request_type or ''))
+        if canonical_awx:
+            awx_template_name = canonical_awx['template_name']
+            playbook_path = canonical_awx['playbook_path']
 
         try:
             awx_client.publish_job_template(
-                name=automation.name,
+                name=awx_template_name,
                 playbook_path=playbook_path,
                 inventory_name=self.config.settings.awx_inventory,
             )
@@ -450,7 +464,7 @@ class AutomationOrchestrator:
             launch_vars.setdefault('afl_request_id', req.id)
 
             launch = awx_client.launch_job(
-                template_name=automation.name,
+                template_name=awx_template_name,
                 limit_hosts=targets,
                 extra_vars=launch_vars,
             )

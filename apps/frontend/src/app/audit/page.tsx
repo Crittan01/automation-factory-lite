@@ -47,7 +47,7 @@ export default function AuditPage() {
           <input
             value={eventFilter}
             onChange={(event) => setEventFilter(event.target.value)}
-            placeholder="Filtrar por event_type"
+            placeholder="Filtrar por tipo de evento"
             className="rounded-xl border border-slate-200 p-2 text-sm"
           />
           <button onClick={load} className="rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white">

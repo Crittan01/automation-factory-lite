@@ -488,10 +488,10 @@
 ### Implemented
 - Exposed ServiceNow as standalone UI on dedicated service/port:
   - `GET /` on ServiceNow-sim (`:18095`) now serves ServiceNow portal (no more root 404).
-  - Portal manages queue visibility and dispatches pending cases to AFL connector.
+  - Portal manages queue visibility and ITSM case lifecycle (no direct automation dispatch).
 - Added ServiceNow-sim integration proxy endpoints:
   - `GET /api/automation/mcp/status` (proxy to AFL connector status)
-  - `POST /api/automation/agent/run` (dispatch to AFL `/api/servicenow-mcp/agent/run`)
+  - `POST /api/automation/agent/run` now intentionally disabled (`410`) to enforce separation of duties.
 - Renamed AFL business module from `ServiceNow MCP` to `ServiceNow Connector`:
   - new route: `/servicenow-connector`
   - legacy route `/servicenow-mcp` kept as redirect for compatibility.
@@ -509,14 +509,13 @@
 - Optional: replace simulated ServiceNow APIs with real ServiceNow OAuth/table APIs under the same proxy contract.
 
 ### Risks / Blockers
-- ServiceNow portal dispatch action depends on AFL backend availability; if AFL is down, dispatch endpoint returns `502` with explicit error.
+- ServiceNow queue execution now depends exclusively on AFL Connector operations; if AFL is down, queue remains visible but unprocessed.
 
 ## Block 17 - ServiceNow Portal UX Realism Tuning
 ### Implemented
 - Reworded ServiceNow standalone portal copy to business/operations language (less technical endpoint-centric text).
 - Updated main actions for realistic operator flow:
   - `Create Demo Cases`
-  - `Dispatch Eligible Cases`
   - `Refresh Queue`
 - Improved queue table to resemble incident/work queue usage:
   - columns now include short description, priority, assignment group.

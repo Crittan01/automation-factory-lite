@@ -33,6 +33,7 @@ from services.servicenow_sim.service import (
 settings = get_settings()
 AFL_BACKEND_BASE_URL = os.getenv('AFL_BACKEND_BASE_URL', 'http://127.0.0.1:18010').rstrip('/')
 AFL_FRONTEND_BASE_URL = os.getenv('AFL_FRONTEND_BASE_URL', 'http://127.0.0.1:13000').rstrip('/')
+AFL_APP_NAME = os.getenv('AFL_APP_NAME', 'Fábrica de Automatización TI')
 app = FastAPI(title='ServiceNow Sim API', version='1.0.0')
 app.add_middleware(
     CORSMiddleware,
@@ -104,60 +105,59 @@ def _portal_html() -> str:
 <body>
   <header>
     <h1>ServiceNow</h1>
-    <p>Incident and Catalog Work Queue | Connected to Automation Factory Lite</p>
+    <p>Cola de incidentes y catálogo | Conectado a __AFL_APP_NAME__</p>
   </header>
   <main>
     <section class="card">
       <div class="toolbar">
-        <button class="dark" id="btn-seed">Create Demo Cases</button>
-        <button class="success" id="btn-dispatch">Dispatch Eligible Cases</button>
-        <button class="primary" id="btn-refresh">Refresh Queue</button>
+        <button class="dark" id="btn-seed">Crear Casos Demo</button>
+        <button class="primary" id="btn-refresh">Actualizar Cola</button>
       </div>
       <p class="muted" style="margin-top: 10px">
-        Automation connector: <span id="connector-status">loading...</span>
+        Conector de automatización: <span id="connector-status">cargando...</span>
       </p>
-      <p class="muted">AFL API endpoint: <span class="mono" id="afl-base">__AFL_BACKEND_BASE_URL__</span></p>
+      <p class="muted">API de backend: <span class="mono" id="afl-base">__AFL_BACKEND_BASE_URL__</span></p>
       <p class="muted" id="run-summary" style="margin-top: 6px"></p>
     </section>
 
     <section class="grid">
       <article class="card"><div class="kpi-label">Total</div><div class="kpi-value" id="k-total">0</div></article>
-      <article class="card"><div class="kpi-label">Open</div><div class="kpi-value" id="k-open">0</div></article>
-      <article class="card"><div class="kpi-label">Resolved</div><div class="kpi-value" id="k-resolved">0</div></article>
-      <article class="card"><div class="kpi-label">Awaiting Approval</div><div class="kpi-value" id="k-approval">0</div></article>
-      <article class="card"><div class="kpi-label">Manual Attention</div><div class="kpi-value" id="k-manual">0</div></article>
+      <article class="card"><div class="kpi-label">Abiertos</div><div class="kpi-value" id="k-open">0</div></article>
+      <article class="card"><div class="kpi-label">Resueltos</div><div class="kpi-value" id="k-resolved">0</div></article>
+      <article class="card"><div class="kpi-label">En Aprobación</div><div class="kpi-value" id="k-approval">0</div></article>
+      <article class="card"><div class="kpi-label">Atención Manual</div><div class="kpi-value" id="k-manual">0</div></article>
     </section>
 
     <section class="row">
       <article class="card">
-        <h3 style="margin: 0 0 10px">Case Queue</h3>
+        <h3 style="margin: 0 0 10px">Cola de Casos</h3>
         <table>
           <thead>
             <tr>
-              <th>Case</th>
-              <th>Short Description</th>
-              <th>State</th>
-              <th>Priority</th>
-              <th>Assignment Group</th>
-              <th>Updated</th>
+              <th>Caso</th>
+              <th>Descripción Corta</th>
+              <th>Estado</th>
+              <th>Prioridad</th>
+              <th>Grupo Asignado</th>
+              <th>Actualizado</th>
             </tr>
           </thead>
           <tbody id="queue-body">
-            <tr><td colspan="6" class="muted">Loading...</td></tr>
+            <tr><td colspan="6" class="muted">Cargando...</td></tr>
           </tbody>
         </table>
       </article>
       <article class="card">
-        <h3 style="margin: 0 0 10px">Automation Flow</h3>
-        <p class="muted">This portal owns case intake and queue management. Automation runs in Automation Factory Lite.</p>
-        <p class="muted">Dispatch policy:</p>
+        <h3 style="margin: 0 0 10px">Flujo de Automatización</h3>
+        <p class="muted">Este portal solo gestiona la atención ITSM y la cola de casos. La automatización se ejecuta desde __AFL_APP_NAME__.</p>
+        <p class="muted">Política de automatización (ejecutada desde el Conector ServiceNow):</p>
         <ul class="muted" style="margin: 6px 0 0 18px; padding: 0;">
-          <li>Low-risk supported cases: processed automatically.</li>
-          <li>Medium-risk cases: moved to approval workflow.</li>
-          <li>Unsupported/out-of-scope cases: routed to manual attention.</li>
+          <li>Casos soportados de bajo riesgo: procesados automáticamente.</li>
+          <li>Casos de riesgo medio: enviados a flujo de aprobación.</li>
+          <li>Casos fuera de alcance: enviados a atención manual.</li>
         </ul>
         <p class="muted" style="margin-top: 10px">
-          Open AFL connector:
+          Abrir Conector ServiceNow:
           <a href="__AFL_FRONTEND_BASE_URL__/servicenow-connector" target="_blank" rel="noreferrer" class="mono">__AFL_FRONTEND_BASE_URL__/servicenow-connector</a>
         </p>
       </article>
@@ -172,18 +172,18 @@ def _portal_html() -> str:
       try {
         const res = await fetch(`${snowApi}/api/automation/mcp/status`, { cache: 'no-store' });
         const data = await res.json();
-        if (!res.ok) throw new Error(data?.detail || 'status unavailable');
-        const bridgeLabel = data.bridge_status === 'connected' ? 'Online' : 'Degraded';
-        statusEl.textContent = `${bridgeLabel} • mode=${data.mode}`;
+        if (!res.ok) throw new Error(data?.detail || 'estado no disponible');
+        const bridgeLabel = data.bridge_status === 'connected' ? 'En línea' : 'Degradado';
+        statusEl.textContent = `${bridgeLabel} • modo=${data.mode}`;
       } catch (error) {
-        statusEl.textContent = `Offline • ${String(error)}`;
+        statusEl.textContent = `Sin conexión • ${String(error)}`;
       }
     }
 
     async function loadCases() {
       const res = await fetch(`${snowApi}/api/cases?limit=300`, { cache: 'no-store' });
       const cases = await res.json();
-      if (!res.ok) throw new Error(cases?.detail || 'Failed to load cases');
+      if (!res.ok) throw new Error(cases?.detail || 'No fue posible cargar los casos');
 
       const openStates = new Set(['new', 'open', 'reopened', 'in_progress']);
       const metrics = {
@@ -201,7 +201,7 @@ def _portal_html() -> str:
       document.getElementById('k-manual').textContent = String(metrics.manual);
 
       if (!cases.length) {
-        queueBody.innerHTML = `<tr><td colspan="6" class="muted">No cases in queue.</td></tr>`;
+        queueBody.innerHTML = `<tr><td colspan="6" class="muted">No hay casos en la cola.</td></tr>`;
         return;
       }
 
@@ -225,36 +225,21 @@ def _portal_html() -> str:
 
     async function seedQueue() {
       const summary = document.getElementById('run-summary');
-      summary.textContent = 'Creating demo cases...';
+      summary.textContent = 'Creando casos demo...';
       const res = await fetch(`${snowApi}/api/cases/seed`, { method: 'POST' });
       const data = await res.json();
       if (!res.ok) {
-        summary.textContent = `Create demo cases failed: ${data?.detail || JSON.stringify(data)}`;
+        summary.textContent = `Error creando casos demo: ${data?.detail || JSON.stringify(data)}`;
         return;
       }
       const created = Array.isArray(data) ? data.length : 0;
       summary.textContent = created > 0
-        ? `Created ${created} demo cases.`
-        : 'Queue already seeded. No duplicate cases were added.';
+        ? `Se crearon ${created} casos demo.`
+        : 'La cola ya estaba sembrada. No se agregaron duplicados.';
       await loadCases();
-    }
-
-    async function dispatchToAfl() {
-      const summary = document.getElementById('run-summary');
-      summary.textContent = 'Dispatch in progress...';
-      const res = await fetch(`${snowApi}/api/automation/agent/run?limit=20`, { method: 'POST' });
-      const data = await res.json();
-      if (!res.ok) {
-        summary.textContent = `Dispatch failed: ${data?.detail || JSON.stringify(data)}`;
-        return;
-      }
-      summary.textContent = `Dispatch completed | scanned=${data.scanned}, processed=${data.processed}, resolved=${data.resolved}, approvals=${data.awaiting_approval}, manual=${data.manual_attention}`;
-      await loadCases();
-      await loadStatus();
     }
 
     document.getElementById('btn-seed').addEventListener('click', () => seedQueue().catch(console.error));
-    document.getElementById('btn-dispatch').addEventListener('click', () => dispatchToAfl().catch(console.error));
     document.getElementById('btn-refresh').addEventListener('click', () => Promise.all([loadCases(), loadStatus()]).catch(console.error));
 
     Promise.all([loadCases(), loadStatus()]).catch(console.error);
@@ -264,9 +249,9 @@ def _portal_html() -> str:
 </html>
 """
     return (
-        html.replace('__AFL_BACKEND_BASE_URL__', AFL_BACKEND_BASE_URL).replace(
-            '__AFL_FRONTEND_BASE_URL__', AFL_FRONTEND_BASE_URL
-        )
+        html.replace('__AFL_BACKEND_BASE_URL__', AFL_BACKEND_BASE_URL)
+        .replace('__AFL_FRONTEND_BASE_URL__', AFL_FRONTEND_BASE_URL)
+        .replace('__AFL_APP_NAME__', AFL_APP_NAME)
     )
 
 
@@ -424,15 +409,11 @@ def api_connector_status() -> dict:
 
 
 @app.post('/api/automation/agent/run')
-def api_dispatch_to_afl(limit: int = Query(default=20, ge=1, le=50)) -> dict:
-    try:
-        res = requests.post(
-            f'{AFL_BACKEND_BASE_URL}/api/servicenow-mcp/agent/run',
-            params={'limit': limit},
-            json={},
-            timeout=30,
-        )
-        res.raise_for_status()
-        return res.json()
-    except requests.RequestException as exc:
-        raise HTTPException(status_code=502, detail=f'AFL connector run failed: {exc}') from exc
+def api_dispatch_to_afl() -> dict:
+    raise HTTPException(
+        status_code=410,
+        detail=(
+            'El despacho directo desde ServiceNow Sim está deshabilitado por diseño. '
+            'Ejecuta la automatización desde el Conector ServiceNow (/servicenow-connector).'
+        ),
+    )

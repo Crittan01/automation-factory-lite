@@ -998,3 +998,782 @@ INFO:     127.0.0.1:47194 - "GET /health HTTP/1.1" 200 OK
 INFO:     127.0.0.1:47192 - "GET /health HTTP/1.1" 200 OK
 INFO:     127.0.0.1:47212 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:47206 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54544 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47218 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47232 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50782 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47242 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47238 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47258 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47262 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47192 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47190 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47210 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47206 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47214 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47230 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47252 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47236 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45324 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45318 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45352 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45336 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45362 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45364 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45390 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45378 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45404 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45410 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45420 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45436 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45424 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45450 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60508 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45454 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45470 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51333 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51333 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51333 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60296 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60302 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60508 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60508 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60508 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60316 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60332 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51333 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51333 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51333 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60342 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60358 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60508 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60368 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60378 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60376 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60382 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60394 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60408 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60418 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60430 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61965 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60432 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60444 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54548 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54476 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54492 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54508 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54514 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54518 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54530 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54544 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54552 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54293 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54566 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54574 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54030 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46606 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46594 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46614 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46618 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:65468 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46626 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46630 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:56760 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46640 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46636 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46650 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46666 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48920 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48926 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48942 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48952 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61366 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48966 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48970 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:56384 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48972 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48986 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48990 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49000 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64523 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57310 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57326 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61231 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52040 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57332 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57346 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51859 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55044 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38550 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38564 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51517 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:53677 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53746 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53756 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62918 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:56722 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60230 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60238 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58267 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52945 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40580 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40586 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57848 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52718 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40594 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40608 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55684 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63048 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59126 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59128 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54222 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51891 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37916 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37922 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61831 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:56775 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60886 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60890 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55363 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'services/servicenow_sim/api.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [29723]
+INFO:     Started server process [32443]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:50262 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60256 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60264 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58286 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'tests/backend/test_servicenow_sim_separation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [32443]
+INFO:     Started server process [32673]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:61232 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41126 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41140 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61970 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57258 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51824 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51828 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58685 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50818 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35720 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35730 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60919 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55244 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55196 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55202 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57568 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51272 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51374 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51388 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61081 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63692 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44872 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44876 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62635 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49357 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34680 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34688 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57228 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'tests/backend/test_servicenow_sim_separation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [32673]
+INFO:     Started server process [34077]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:57089 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34666 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34678 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62918 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'services/servicenow_sim/api.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [34077]
+INFO:     Started server process [34664]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:64070 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42322 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42330 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60276 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52873 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58764 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58768 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58861 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58397 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39030 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39034 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:59945 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50888 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60606 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60620 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62918 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62918 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62918 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60636 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60644 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50888 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50888 - "GET / HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50888 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60658 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60664 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62918 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37542 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37556 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37582 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37594 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37558 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37566 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37600 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37612 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37614 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37630 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37632 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37636 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54804 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37644 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37660 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49916 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37674 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37684 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37686 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37688 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37690 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37696 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37708 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37720 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37740 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37730 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37750 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37754 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57868 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44772 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44776 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62078 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44778 - "GET /health HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50093 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44784 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58073 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58992 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36460 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36472 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64960 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41828 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41848 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41844 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41832 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41864 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41880 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41888 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41892 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41904 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41910 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41916 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41924 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57920 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41926 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41932 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61785 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39916 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39936 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39930 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39938 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51574 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39946 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39954 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51882 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54878 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52746 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52758 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:56392 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42074 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42082 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42106 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42098 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42114 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42090 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42136 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42122 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42166 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42150 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42180 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42194 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63782 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42196 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42204 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61281 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42218 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42228 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42232 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42248 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56486 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56484 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56496 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56508 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56534 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56524 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56548 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56546 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39794 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39800 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39810 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39808 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39818 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39826 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39842 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39844 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33472 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33480 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33484 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33482 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33498 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33494 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33508 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33518 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55906 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55890 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55932 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55918 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55958 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55946 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55964 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55970 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36808 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36816 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36820 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36822 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36824 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36830 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36836 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36862 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36852 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36844 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36874 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36880 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36890 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36898 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36918 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36908 - "GET /api/cases/INC000020 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44766 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44770 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44782 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44796 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:56402 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44808 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44814 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51816 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44828 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44834 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44838 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44840 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60448 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60446 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60484 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60472 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60498 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60490 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60516 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60504 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36502 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36510 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36516 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36530 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36542 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36536 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36556 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36564 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42934 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42936 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42944 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42960 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42976 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42980 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42990 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42998 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40122 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40124 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40134 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40146 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40168 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40160 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40190 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40176 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56872 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56868 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56890 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56886 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56906 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56902 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56918 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56924 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58440 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58432 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58456 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58470 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52717 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58486 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58502 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55116 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58506 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58512 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58524 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58536 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41732 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41718 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41746 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41736 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41770 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41758 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41786 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41800 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42136 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42130 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42146 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42154 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42160 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42166 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42180 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42174 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48564 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48560 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48588 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48574 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48594 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48600 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48616 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48628 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59008 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59014 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59018 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59020 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59042 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59026 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59044 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59054 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58886 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58876 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58892 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58888 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58908 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58910 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58930 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58922 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57000 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57008 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57022 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57030 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:59368 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57042 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57058 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54003 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57070 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57074 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57084 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57100 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60950 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60940 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60966 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60958 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60984 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60982 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32780 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32768 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58872 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58886 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58906 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58932 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58922 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58934 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58936 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48880 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48882 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48904 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48890 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48910 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48906 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48926 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48914 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46600 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46592 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46604 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46612 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58504 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52142 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52146 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55300 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49344 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51196 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51212 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58334 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58334 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51224 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51230 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49344 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57589 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59354 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59366 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63372 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50537 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48240 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48254 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60984 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64145 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48266 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48274 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49667 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60931 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39090 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39100 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:53658 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:65062 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43762 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43774 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63118 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61161 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47548 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47554 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60978 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58834 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50346 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50352 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49269 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50716 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50368 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51164 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52678 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52590 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52602 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:65375 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60707 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33380 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33396 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63747 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:59041 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49072 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49082 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61370 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58729 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51208 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51220 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:53925 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64457 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51236 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51240 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55700 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60100 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59818 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59826 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49829 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64055 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33076 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33080 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57160 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58213 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43776 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43780 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:59585 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57391 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39086 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39090 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57168 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52238 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39100 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39104 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:56646 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60843 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35658 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35660 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52425 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52552 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51138 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51142 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49770 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64772 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59314 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59318 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61878 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61526 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58300 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58314 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55095 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:60857 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58322 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58326 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64951 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:59935 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48664 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48670 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51213 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:56848 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41108 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41114 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52424 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62650 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60208 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60224 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:59698 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63817 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52988 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52992 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64833 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54801 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53008 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53022 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:53342 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49397 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58692 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58704 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:53124 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61220 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47440 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47452 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49285 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:53733 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49272 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49280 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:51612 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55166 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45304 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45310 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49667 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'services/servicenow_sim/api.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [34664]
+INFO:     Started server process [38627]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:53364 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46370 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46386 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50419 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'services/servicenow_sim/external_agent.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [38627]
+INFO:     Started server process [38729]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'apps/backend/app/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [38729]
+INFO:     Started server process [38817]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:53095 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46064 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46068 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:61624 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64865 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48036 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48050 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:59975 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:56517 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35712 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35726 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62615 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'services/awx_client/client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [38817]
+INFO:     Started server process [43610]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:57269 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44692 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44708 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58427 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'services/servicenow_sim/api.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [43610]
+INFO:     Started server process [43781]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:49770 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37194 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37202 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:53929 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:49858 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58272 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58282 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:59708 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54475 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36414 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36428 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55788 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62346 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45460 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45464 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63549 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'services/orchestrator/engine.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [43781]
+INFO:     Started server process [45585]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:55648 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58980 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58990 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64278 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'tests/orchestrator/test_awx_canonical_templates.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [45585]
+INFO:     Started server process [45666]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.250.1:55110 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55122 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55134 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54229 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:54801 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33782 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33792 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55588 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55643 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49276 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49284 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:53852 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:62918 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58512 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58524 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63065 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:52561 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52874 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52888 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:55313 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:63265 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48860 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48872 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:57497 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58676 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37616 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37626 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:64796 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK
+INFO:     192.168.250.1:50262 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56638 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56644 - "GET /api/cases?limit=300 HTTP/1.1" 200 OK
+INFO:     192.168.250.1:58971 - "GET /api/automation/mcp/status HTTP/1.1" 200 OK

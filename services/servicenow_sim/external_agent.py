@@ -69,9 +69,13 @@ def run_pending_cases_via_external(
     orchestrator: AutomationOrchestrator,
     client: ExternalServiceNowClient,
     limit: int = 10,
+    specific_case_number: str | None = None,
 ) -> ExternalCaseAgentRunResult:
-    queue = client.list_cases(limit=limit)
-    candidates = [item for item in queue if item.get('state') in {'new', 'open', 'reopened'}][:limit]
+    if specific_case_number:
+        candidates = [client.get_case(specific_case_number)]
+    else:
+        queue = client.list_cases(limit=limit)
+        candidates = [item for item in queue if item.get('state') in {'new', 'open', 'reopened'}][:limit]
 
     processed = 0
     resolved = 0

@@ -368,6 +368,60 @@ def run_servicenow_mcp_agent(limit: int = Query(default=5, ge=1, le=50), db: Ses
     )
 
 
+@app.post('/api/servicenow-mcp/cases/{case_number}/process', response_model=ServiceNowAgentRunResponse)
+def process_servicenow_mcp_case(case_number: str, db: Session = Depends(get_db)) -> ServiceNowAgentRunResponse:
+    client = _build_external_servicenow_client(check_health=True)
+    try:
+        case = client.get_case(case_number)
+    except Exception as exc:
+        raise HTTPException(status_code=404, detail=f'Case {case_number} not found or unavailable: {exc}') from exc
+
+    current_state = str(case.get('state') or '').strip()
+    if current_state not in {'new', 'open', 'reopened', 'in_progress'}:
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                f'Case {case_number} cannot be processed from state={current_state}. '
+                'Only new/open/reopened/in_progress states are processable.'
+            ),
+        )
+
+    result = run_pending_cases_via_external(
+        db,
+        orchestrator=orchestrator,
+        client=client,
+        limit=1,
+        specific_case_number=case_number,
+    )
+    db.add(
+        AuditLog(
+            request_id=None,
+            ticket_id=case_number,
+            event_type='servicenow_mcp_case_run',
+            message='External ServiceNow MCP single-case run executed.',
+            payload={
+                'scanned': result.scanned,
+                'processed': result.processed,
+                'resolved': result.resolved,
+                'awaiting_approval': result.awaiting_approval,
+                'manual_attention': result.manual_attention,
+                'errors': result.errors,
+                'case_numbers': result.case_numbers,
+            },
+        )
+    )
+    db.commit()
+    return ServiceNowAgentRunResponse(
+        scanned=result.scanned,
+        processed=result.processed,
+        resolved=result.resolved,
+        awaiting_approval=result.awaiting_approval,
+        manual_attention=result.manual_attention,
+        errors=result.errors,
+        case_numbers=result.case_numbers,
+    )
+
+
 @app.get('/api/servicenow/cases', response_model=list[ServiceNowCaseResponse])
 def list_servicenow(
     state: str | None = Query(default=None),

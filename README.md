@@ -45,7 +45,7 @@ Default conflict-safe ports:
 ## ServiceNow Sim (new)
 - Standalone ServiceNow portal (separate service/UI):
   - `http://127.0.0.1:18095/`
-  - owns queue view and triggers dispatch to AFL connector
+  - owns queue view and ITSM case lifecycle only (no automation dispatch)
 - AFL UI modules:
   - `/servicenow-connector` (AFL connector module; consumes ServiceNow via MCP bridge)
   - `/servicenow-mcp` (legacy alias -> redirects to `/servicenow-connector`)
@@ -53,7 +53,6 @@ Default conflict-safe ports:
 - Dedicated ServiceNow-sim API (separate process/port):
   - default: `http://127.0.0.1:18095`
   - start: `bash scripts/run_servicenow_sim.sh`
-  - dispatch target configurable via `AFL_BACKEND_BASE_URL` (default `http://127.0.0.1:18010`)
   - connector UI link configurable via `AFL_FRONTEND_BASE_URL` (default `http://127.0.0.1:13000`)
 - MCP bridge model:
   - Automation Factory Lite does not share DB with ServiceNow-sim in this mode.
@@ -76,6 +75,7 @@ Default conflict-safe ports:
   - Leaves medium-risk cases in `awaiting_approval`.
   - Escalates out-of-catalog cases to `needs_manual_attention` with evidence.
   - ServiceNow portal `Create Demo Cases` is idempotent (no duplicate queue flooding); `force=true` is reserved for controlled test batches.
+  - Queue processing is triggered only from AFL Connector (`/servicenow-connector`).
 
 See:
 - `docs/demo-runbook.md`

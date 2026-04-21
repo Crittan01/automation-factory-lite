@@ -34,19 +34,19 @@ export default function CmdbPage() {
         <h2 className="text-xl font-bold">CMDB</h2>
         <div className="mt-3 grid gap-2 md:grid-cols-4">
           <input
-            placeholder="environment"
+            placeholder="entorno"
             value={environment}
             onChange={(event) => setEnvironment(event.target.value)}
             className="rounded-xl border border-slate-200 p-2 text-sm"
           />
           <input
-            placeholder="owner"
+            placeholder="responsable"
             value={owner}
             onChange={(event) => setOwner(event.target.value)}
             className="rounded-xl border border-slate-200 p-2 text-sm"
           />
           <input
-            placeholder="criticality"
+            placeholder="criticidad"
             value={criticality}
             onChange={(event) => setCriticality(event.target.value)}
             className="rounded-xl border border-slate-200 p-2 text-sm"
